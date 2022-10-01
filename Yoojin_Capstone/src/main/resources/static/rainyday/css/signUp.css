@@ -116,7 +116,7 @@ input, select, textarea {
 			overflow: auto;
 		}
 
-	body, input, select, textarea {
+	body, input, textarea {
 		color: #6f7577;
 		font-family: "Raleway", "Helvetica", sans-serif;
 		font-size: 15pt;
@@ -159,7 +159,6 @@ input, select, textarea {
 		letter-spacing: 0.075em;
 		line-height: 1em;
 		margin: 0 0 1em 0;
-		text-transform: uppercase;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1931,7 +1930,6 @@ input, select, textarea {
 	header p {
 		color: #a8b0b3;
 		letter-spacing: 0.05em;
-		text-transform: uppercase;
 	}
 
 	header h1 + p {
@@ -2021,7 +2019,7 @@ input, select, textarea {
 		display: block;
 		outline: 0;
 		padding: 0 1em;
-		margin: 2em auto;
+		margin: 1em auto;
 		text-decoration: none;
 		width: 90%;
 	}
@@ -2044,13 +2042,14 @@ input, select, textarea {
 
 	select {
 		/* background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='%23a8b0b3' /%3E%3C/svg%3E"); */
-		background-color: #1F4E79;
+		background-color: #ffffff;
 		background-size: 1.25rem;
 		background-repeat: no-repeat;
 		background-position: calc(100% - 1rem) center;
 		height: 3em;
 		padding-right: 3em;
 		text-overflow: ellipsis;
+		font-family: "Garam";
 	}
 
 		select option {
@@ -2618,7 +2617,6 @@ input, select, textarea {
 
 		text-align: center;
 		text-decoration: none;
-		text-transform: uppercase;
 		white-space: nowrap;
 	}
 
@@ -2767,7 +2765,7 @@ input, select, textarea {
 		}
 
 		.main .container {
-			padding: 5em 2.5em 8em 2.5em ;
+			padding: 1.2em 2.5em 8em 2.5em ;
 			background: rgba(255, 255, 255, 0.95);
 			box-shadow: inset 0 1px 0 0 #dddddd;
 		}
@@ -3180,12 +3178,14 @@ input, select, textarea {
 	width: 20%;
 	background-color: transparent;
 	color: inherit;
+	margin-top: -1em;
 
 }
 
 .UserOrAdmin{
 	display: flex;
-	padding: 0 auto;
+	margin-top: -2.5em;
+	margin-bottom: -1.5em;
 }
 
 .UserOrAdmin >input[type="button"]{
