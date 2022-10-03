@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 		<meta charset="UTF-8">
 		<title>RainyDay</title>
@@ -15,15 +15,20 @@
 						</header>
 						
 						<div class="UserOrAdmin">
-							<input type="button" id="btnUser" value="사용자"/>
+							<input type="button" value="사용자" onClick="window.location.href='/rainyday/signUpUser'"/>
 							<input type="button" id="btnAdmin" value="관리자"/>
 						</div>
 						
-						<input type="text" id="member_id" placeholder="학번"/>
-						<input type="password" id="member_password" placeholder="비밀번호"/>
-						<input type="password" id="member_passwordCheck" placeholder="비밀번호 재확인"/>
-						<input type="text" id="member_name" placeholder="이름"/>
-						<select name="member_depart" id="select_depart">
+						<div class="divInputId">
+						<input type="text" id="admin_id" placeholder="아이디"/>
+						<input type="button" id="idCheck" value="중복 확인"/>
+						</div>
+						
+						<input type="password" id="admin_password" placeholder="비밀번호"/>
+						<input type="password" id="admin_passwordCheck" placeholder="비밀번호 재확인"/>
+						<input type="text" id="admin_name" placeholder="이름"/>
+						
+						<select name="admin_depart" class="selectDepar" id="selectDepart">
 							<option value="" selected disabled>학과</option>
 							<option value="computerSystem" id="computerSystem">컴퓨터시스템과</option>
 							<option value="computerInforma" id="computerInforma">컴퓨터정보과</option>
@@ -36,7 +41,7 @@
 							<option value="bigData" id="bigData">공간정보빅데이터과</option>
 						</select>
 						
-						<select name="member_question" id="select_question">
+						<select name="adminQuestion" class="selectQuestion" id="selectQuestion">
 							<option value="" selected disabled>본인 확인 질문</option>
 							<option value="friend" id="computerSystem">가장 친한 친구 이름은?</option>
 							<option value="travelPlace" id="travelPlace">첫 해외여행 장소는?</option>
@@ -46,13 +51,16 @@
 						</select>
 						
 						
-						<input type="text" id="member_answer" placeholder="본인 확인 답변"/>
+						<input type="text" id="adminAnswer" placeholder="본인 확인 답변"/>
+						
+						<div class="divCheckAdmin">
+						<input type="text" id="adminKey" placeholder="관리자용 키"/>
+						<input type="button" id="btnAdminCheck" value="관리자 확인"/>
+						</div>
 						
 						<input type="button" value="Sign Up"/>
-						<div class="loginFoot">
-							
-							<input type="button" id="btnBack" value="돌아가기"/>
-							
+						<div class="divLoginFoot">
+							<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/introPage'"/>
 						</div>
 					</div>
 					

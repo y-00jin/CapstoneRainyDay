@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="UTF-8">
+		<title>RainyDay</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/rainyday/css/signUp.css" />
+</head>
+<body>
+<section id="signUp" class="main special">
+				<div class="container">
+					<div class="content">
+						<header class="major">
+							<h2>Sign Up</h2>
+						</header>
+						
+						<div class="UserOrAdmin">
+							<input type="button" id="btnUser" value="사용자"/>
+							 <input type="button" value="관리자"  onClick="window.location.href='/rainyday/signUpAdmin'"/>
+						</div>
+						
+						<div class="divInputId">
+						<input type="text" id="userId" placeholder="학번"/>
+						<input type="button" id="idCheck" value="중복 확인"/>
+						</div>
+						
+						<input type="password" id="userPassword" placeholder="비밀번호"/>
+						<input type="password" id="userPasswordCheck" placeholder="비밀번호 재확인"/>
+						<input type="text" id="userName" placeholder="이름"/>
+						
+						<select name="userDepart" class="selectDepar" id="select_depart">
+							<option value="" selected disabled>학과</option>
+							<option value="computerSystem" id="computerSystem">컴퓨터시스템과</option>
+							<option value="computerInforma" id="computerInforma">컴퓨터정보과</option>
+							<option value="chemicalBio" id="chemicalBio">화학생명공학과</option>
+							<option value="material" id="material">재료공학과</option>
+							<option value="mechanical" id="mechanical">기계공학과</option>
+							<option value="mechanicalDesign" id="mechanicalDesign">기계설계공학과</option>
+							<option value="mechatronics" id="mechatronics">메카트로닉스공학과</option>
+							<option value="Electrical" id="Electrical">전기공학과</option>
+							<option value="bigData" id="bigData">공간정보빅데이터과</option>
+						</select>
+						
+						<select name="userQuestion" class="selectQuestion" id="select_question">
+							<option value="" selected disabled>본인 확인 질문</option>
+							<option value="friend" id="computerSystem">가장 친한 친구 이름은?</option>
+							<option value="travelPlace" id="travelPlace">첫 해외여행 장소는?</option>
+							<option value="firstLove" id="firstLove">첫사랑 이름은?</option>
+							<option value="book" id="book">가장 기억에 남는 책은?</option>
+							<option value="movie" id="movie">가장 기억에 남는 영화는?</option>
+						</select>
+						
+						
+						<input type="text" id="userAnswer" placeholder="본인 확인 답변"/>
+						
+						<input type="button" value="Sign Up"/>
+						<div class="divLoginFoot">
+							<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/introPage'"/>
+						</div>
+					</div>
+					
+				</div>
+				<section id="footer">
+					<footer>
+					<ul class="copyright">
+						<li>&copy; 202045067 이유진</a></li><li>Github : <a href="https://github.com/y-00jin">https://github.com/y-00jin</a></li>
+					</ul>
+				</footer>
+				</section>
+</body>
+</html>

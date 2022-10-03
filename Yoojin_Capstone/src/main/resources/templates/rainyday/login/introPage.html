@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>RainyDay</title>
 		<meta charset="utf-8" />
@@ -30,12 +30,12 @@
 						<header class="major">
 							<h2>LOGIN</h2>
 						</header>
-						<input type="text" id="member_id" placeholder="학번"/>
+						<input type="text" id="memberId" placeholder="학번"/>
 						<input type="password" id="password" placeholder="비밀번호"/>
 						<input type="button" id="btnLogin" value="LOGIN"/>
 						<!-- <label>학번</label> -->
 						<div class="loginFoot">
-							<input type="button" id="btnLogSignUp" value="회원가입"/>
+							<input type="button" id="btnLogSignUp" value="회원가입" onClick="window.location.href='/rainyday/signUpUser'"/>
 							<input type="button" id="btnLogfindId" value="아이디 찾기"/>
 							<input type="button" id="btnLogfindPw" value="비밀번호 찾기"/>
 						</div>

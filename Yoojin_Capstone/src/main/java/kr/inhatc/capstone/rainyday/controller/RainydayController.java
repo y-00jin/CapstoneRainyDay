@@ -12,9 +12,13 @@ public class RainydayController {
 		return "rainyday/login/introPage";
 	}
 	
-	@GetMapping(value = "rainyday/signUp")
-	public String signUp() {
-		return "rainyday/login/signUp";
+	@GetMapping(value = "rainyday/signUpUser")
+	public String signUpUser() {
+		return "rainyday/login/signUpUser";
+	}
+	@GetMapping(value = "rainyday/signUpAdmin")
+	public String signUpAdmin() {
+		return "rainyday/login/signUpAdmin";
 	}
 	
 }
