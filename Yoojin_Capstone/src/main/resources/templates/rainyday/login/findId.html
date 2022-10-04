@@ -4,30 +4,20 @@
 		<meta charset="UTF-8">
 		<title>RainyDay</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/rainyday/css/signUp.css" />
+		<link rel="stylesheet" href="/rainyday/css/findId.css" />
 </head>
 <body>
 <section id="signUp" class="main special">
 				<div class="container">
 					<div class="content">
 						<header class="major">
-							<h2>Sign Up</h2>
+							<h2>아이디 찾기</h2>
 						</header>
 						
-						<div class="UserOrAdmin">
-							<input type="button" id="btnUser" value="사용자"/>
-							 <input type="button" value="관리자"  onClick="window.location.href='/rainyday/signUpAdmin'"/>
-						</div>
 						
-						<div class="divInputId">
-						<input type="text" id="userId" placeholder="학번"/>
-						<input type="button" id="idCheck" value="중복 확인"/>
-						</div>
 						
-						<input type="password" id="userPassword" placeholder="비밀번호"/>
-						<input type="password" id="userPasswordCheck" placeholder="비밀번호 재확인"/>
 						<input type="text" id="userName" placeholder="이름"/>
-						
+
 						<select name="userDepart" class="selectDepar" id="selectDepart">
 							<option value="" selected disabled>학과</option>
 							<option value="computerSystem" id="computerSystem">컴퓨터시스템과</option>
@@ -53,7 +43,7 @@
 						
 						<input type="text" id="userAnswer" placeholder="본인 확인 답변"/>
 						
-						<input type="button" value="Sign Up"/>
+						<input type="button" value="아이디 찾기" id="btnFindId" onClick="window.location.href='/rainyday/findIdDetail'"/>
 						<div class="divLoginFoot">
 							<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/introPage'"/>
 						</div>
