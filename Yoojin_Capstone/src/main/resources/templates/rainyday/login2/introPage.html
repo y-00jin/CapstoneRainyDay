@@ -1,12 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+	<head>
 		<title>RainyDay</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/rainyday/css/login/introPage.css" />
+		<link rel="stylesheet" href="/rainyday/css/introPage.css" />
 	</head>
-
 	<body class="is-preload">
 
 		<!-- Header -->
@@ -31,23 +30,18 @@
 						<header class="major">
 							<h2>LOGIN</h2>
 						</header>
-						<form action="/rainyday/members/introPage" method="post"  th:object="${membersFormDto}">
-						
-							<input type="text" th:field="*{memberDepId}" id="memberId"  value="" placeholder="학번"/>
-							<input type="password" th:field="*{password}" id="password" value=""  placeholder="비밀번호"/>
-							<input type="submit" id="btnLogin" value="LOGIN"/>
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						<form>
+							<input type="text" id="memberId" placeholder="학번"/>
+							<input type="password" id="password" placeholder="비밀번호"/>
+							<input type="button" id="btnLogin" value="LOGIN"/>
 						</form>
 						
-						<input type="text" id="inputLoginCheck" th:value="${loginCheck}" disabled/>
-					
-						
+						<!-- <label>학번</label> -->
 						<div class="loginFoot">
 							<input type="button" id="btnLogSignUp" value="회원가입" onClick="window.location.href='/rainyday/signUpUser'"/>
 							<input type="button" id="btnLogfindId" value="아이디 찾기" onClick="window.location.href='/rainyday/findId'"/>
 							<input type="button" id="btnLogfindPw" value="비밀번호 찾기" onClick="window.location.href='/rainyday/findPw'"/>
 						</div>
-						
 					</div>
 					
 				</div>

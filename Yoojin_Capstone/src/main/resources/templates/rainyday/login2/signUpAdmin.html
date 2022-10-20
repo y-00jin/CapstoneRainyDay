@@ -5,6 +5,14 @@
 		<title>RainyDay</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/rainyday/css/signUp.css" />
+		
+		<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+   
+
+</th:block>
+
 </head>
 <body>
 <section id="signUp" class="main special">
@@ -19,8 +27,9 @@
 							<input type="button" id="btnAdmin" value="관리자"/>
 						</div>
 						
+						
 						<div class="divInputId">
-						<input type="text" id="admin_id" placeholder="아이디"/>
+						<input type="text" th:field="*{memberId}" id="admin_id" placeholder="아이디"/>
 						<input type="button" id="idCheck" value="중복 확인"/>
 						</div>
 						
@@ -58,7 +67,8 @@
 						<input type="button" id="btnAdminCheck" value="관리자 확인"/>
 						</div>
 						
-						<input type="button" value="Sign Up"/>
+						<input type="submit" value="Sign Up"/>
+						
 						<div class="divLoginFoot">
 							<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/introPage'"/>
 						</div>
