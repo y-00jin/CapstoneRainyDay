@@ -17,8 +17,12 @@ public interface MembersRepository extends JpaRepository<Members, Long>, Queryds
 	 * @param password
 	 * @return
 	 */
-//	@Query(value = "select * from t_member m where m.member_dep_id like %:memberDepId% and m.password like %:password%", nativeQuery = true)	//true를 해줘야 *를 인식
-//	List<Members> findByMemberDepId(@Param("memberDepId")String memberDepId, @Param("password") String password);
-	
 	List<Members> findByMemberDepIdAndPassword(String memberDepId, String password);
+	
+	/**
+	 * 회원가입 시 아이디 중복 체크
+	 * @param memberDepId
+	 * @return
+	 */
+	Members findByMemberDepId(String memberDepId);
 }

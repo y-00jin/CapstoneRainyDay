@@ -39,13 +39,13 @@ public class Members {
 	@Column(nullable = false, length = 20)
 	private String name;					//이름
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String depart;					//학과
 	
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 100)
 	private String question;				//질문
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String answer;					//답변
 	
 	@Column(length = 10)
@@ -56,17 +56,16 @@ public class Members {
 		
 		members.setMemberDepId(membersFormDto.getMemberDepId());	// 학번
 
-//		String password = passwordEncoder.encode(membersFormDto.getPassword());	// 비밀번호
-        members.setPassword(membersFormDto.getPassword());
+        members.setPassword(membersFormDto.getPassword());          // 비밀번호
         
 		members.setName(membersFormDto.getName());					// 이름
 		members.setDepart(membersFormDto.getDepart());				// 학과
 		members.setQuestion(membersFormDto.getQuestion());			// 질문
 		members.setAnswer(membersFormDto.getAnswer());				// 답변
 		
-		if(membersFormDto.getAdmin() == null) {	// 사용자
+		if(membersFormDto.getAdmin() == null || membersFormDto.getAdmin().equals("")) {	// 사용자
 			members.setAdmin("N");
-		} else {								// 관리자
+		} else if(membersFormDto.getAdmin() != null && membersFormDto.getAdmin().equals("rainydayAdminKey")) {								// 관리자
 			members.setAdmin("Y");
 		}
 		

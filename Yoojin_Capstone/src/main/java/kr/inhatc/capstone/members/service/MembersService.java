@@ -16,9 +16,27 @@ public class MembersService {
 
 	private final MembersRepository membersRepository;
 
+	
 	public Members saveMember(Members members) {
 		return membersRepository.save(members); // 저장된 멤버를 리턴
 	}
+	
+	 /**
+     * 사용자 중복 체크
+     * @param member
+     */
+    public boolean validateDuplicate(Members members) {
+        Members findMemberDepId = membersRepository.findByMemberDepId(members.getMemberDepId());
+        if(findMemberDepId != null) {    // 중복
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+	
+	
+	
 	
 	/**
 	 * 로그인 시 아이디와 비밀번호로 조회
@@ -35,13 +53,9 @@ public class MembersService {
 			return false;
 		}
 		
-//		List<Members> membersList = membersRepository.findByMemberDepId(members.getMemberDepId(), members.getPassword());	// 웹에서 받은 아이디, 비밀번호로 조화
 		List<Members> membersList = membersRepository.findByMemberDepIdAndPassword(members.getMemberDepId(), members.getPassword());	// 웹에서 받은 아이디, 비밀번호로 조화
 		
 		System.out.println("=========================> 서비스 membersList " + membersList);
-		
-		
-		
 
 		if(membersList.isEmpty() == true) {	// isEmpty() == true : 요소를 가지고 있지 않을 때 => 로그인 정보 조회 실패
 			return false;
