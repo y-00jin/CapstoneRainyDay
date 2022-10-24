@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="UTF-8">
+		<title>RainyDay</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/rainyday/css/members/findPw.css" />
+		<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			$('.pw').focusout(function(){
+    	var pass1 = $("#userPassword").val();
+        var pass2 = $("#newPassword").val();
+        
+        if (pass1 != "" || pass2 != ""){
+        	if (pass1 == pass2){
+            	$("#pw-success").css('display','flex')
+				$("#pw-fail").css('display','none')
+            } else {
+            	$("#pw-success").css('display','none')
+				$("#pw-fail").css('display','flex')
+            }
+        }
+
+	});
+
+		});
+	</script>	
+</head>
+<body>
+<section id="signUp" class="main special">
+				<div class="container">
+					<div class="content">
+						<header class="major">
+							<h2>비밀번호 재설정</h2>
+						</header>
+						
+						<form action="/rainyday/members/findPwDetail" method="post" th:object="${membersFormDto}">
+
+
+						<input type="password" th:field="*{password}" class="pw" id="userPassword" placeholder="새 비밀번호" />
+						<input type="password" id="newPassword" class="pw" placeholder="새 비밀번호 확인" />
+						<span id="pw-success" class="span-pw" style="display: none;color:#1DDB16">비밀번호가 일치합니다.</span>
+						<span id="pw-fail" class="span-pw" style="display: none;color:red">비밀번호가 일치하지 않습니다.</span>
+						
+						<input type="text" id="contentCheck" th:value="${contentCheck}" disabled />
+						
+						<input type="submit" value="비밀번호 변경" id="changePw">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						</form>
+
+						<div class="divLoginFoot">
+							<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/members/introPage'"/>
+						</div>
+					</div>
+					
+				</div>
+				<section id="footer">
+					<footer>
+					<ul class="copyright">
+						<li>&copy; 202045067 이유진</a></li><li>Github : <a href="https://github.com/y-00jin">https://github.com/y-00jin</a></li>
+					</ul>
+				</footer>
+				</section>
+</body>
+</html>

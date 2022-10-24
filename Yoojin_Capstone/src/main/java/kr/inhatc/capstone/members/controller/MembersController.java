@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.inhatc.capstone.members.dto.MembersFormDto;
 import kr.inhatc.capstone.members.entity.Members;
@@ -24,6 +25,8 @@ public class MembersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    private String staticMemberDep;
+    
     /**
      * 시작 화면 introPage
      * 
@@ -171,6 +174,130 @@ public class MembersController {
 
         }
 
+    }
+    
+    /**
+     * 아이디 찾기
+     * @param model
+     * @return
+     */
+    @GetMapping(value = { "/findId", "/findIdDetail"})
+    public String findId(Model model) {
+        model.addAttribute("membersFormDto", new MembersFormDto());
+        return "rainyday/members/findId";
+    }
+    
+    
+    /**
+     * findId에서 정보 입력 후 submit
+     * 
+     * @param membersFormDto
+     * @return
+     */
+    @PostMapping(value = { "/findId", "/findIdDetail"})
+    public String findIdDetail(MembersFormDto membersFormDto, Model model) {
+
+        Members members = Members.createMembers(membersFormDto); // 웹에서 submit해서 받은 정보로 member 객체 만들기
+
+        System.out.println("=========================> 웹에서 받은 멤버로 만든 객체 " + members);
+
+        if(members.getDepart() == null || members.getDepart().equals("") || members.getAnswer() == null || members.getAnswer().equals("") 
+           || members.getQuestion() == null || members.getQuestion().equals("") || members.getName() == null || members.getName().equals("")) 
+        {
+            model.addAttribute("contentCheck", "정보를 모두 입력해주세요.");
+            return "rainyday/members/findId"; 
+        }else{
+            Members checkMembers = membersService.findId(members);
+            if(checkMembers == null || checkMembers.getMemberDepId() == null || checkMembers.getMemberDepId().equals("")) {
+                model.addAttribute("contentCheck", "입력한 정보와 일치하는 아이디가 없습니다.");
+                return "rainyday/members/findId"; 
+            }else {
+                model.addAttribute("checkMembers", checkMembers.getMemberDepId());
+                return "rainyday/members/findIdDetail";
+            }
+           
+        }
+
+    }
+    
+    /**
+     * 비밀번호 찾기
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/findPw")
+    public String findPw(Model model) {
+        model.addAttribute("membersFormDto", new MembersFormDto());
+        return "rainyday/members/findPw";
+    }
+    
+
+    /**
+     * 비밀번호 찾기에서 정보 입력 후 submit
+     * @param membersFormDto
+     * @param model
+     * @return
+     */
+    @PostMapping(value = "/findPw")
+    public String findPw(MembersFormDto membersFormDto, Model model) {
+
+        Members members = Members.createMembers(membersFormDto); // 웹에서 submit해서 받은 정보로 member 객체 만들기
+
+
+        System.out.println("*********************************" + members);
+        
+        if(members.getMemberDepId() == null || members.getMemberDepId().equals("") ||members.getDepart() == null || members.getDepart().equals("") || members.getAnswer() == null || members.getAnswer().equals("") 
+           || members.getQuestion() == null || members.getQuestion().equals("") || members.getName() == null || members.getName().equals("")) 
+        {
+            model.addAttribute("contentCheck", "정보를 모두 입력해주세요.");
+            return "rainyday/members/findPw"; 
+        }else{
+            Members checkMembers = membersService.findId(members);
+            if(checkMembers == null || checkMembers.getMemberDepId() == null || checkMembers.getMemberDepId().equals("")) {
+                model.addAttribute("contentCheck", "입력한 정보와 일치하는 아이디가 없습니다.");
+                return "rainyday/members/findPw"; 
+            }else {
+                staticMemberDep = checkMembers.getMemberDepId();
+                return "rainyday/members/findPwDetail";
+            }
+           
+        }
+
+    }
+    
+    
+    /**
+     * 비밀번호 변경
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/findPwDetail")
+    public String findPwDetail(Model model) {
+        model.addAttribute("membersFormDto", new MembersFormDto());
+        return "rainyday/members/findPwDetail";
+    }
+    
+    /**
+     * 비밀번호 변경에서 새 비밀번호 입력 후 submit클릭
+     * @param membersFormDto
+     * @param model
+     * @return
+     */
+    @PostMapping(value = "/findPwDetail")
+    public String findPwDetail(MembersFormDto membersFormDto, Model model) {
+        
+        Members members = Members.createMembers(membersFormDto); // 웹에서 submit해서 받은 정보로 member 객체 만들기
+        members.setMemberDepId(staticMemberDep);
+        System.out.println("+++++++++++++++++++++++++++++++++++ " + members);
+        
+        if(members.getPassword() == null || members.getPassword().equals("")) {
+            model.addAttribute("contentCheck", "정보를 모두 입력해주세요.");
+            return "rainyday/members/findPwDetail";
+        }else {
+            membersService.updatePw(members);
+            return "rainyday/members/introPage";
+        }
+        
     }
 
 }

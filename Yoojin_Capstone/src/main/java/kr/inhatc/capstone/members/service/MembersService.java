@@ -35,9 +35,6 @@ public class MembersService {
         }
     }
 	
-	
-	
-	
 	/**
 	 * 로그인 시 아이디와 비밀번호로 조회
 	 * @param memberDepId
@@ -65,6 +62,22 @@ public class MembersService {
 			return true;
 		}
 		
+	}
+	
+	public Members findId(Members members) {
+	    System.out.println("=========================> members " + members);
+	    Members checkMembers = membersRepository.findByNameAndDepartAndQuestionAndAnswer(members.getName(), members.getDepart(), members.getQuestion(), members.getAnswer());
+	    return checkMembers;
+	}
+	
+	public Members findPw(Members members) {
+        System.out.println("=========================> members " + members);
+        Members checkMembers = membersRepository.findByMemberDepIdAndNameAndDepartAndQuestionAndAnswer(members.getMemberDepId() ,members.getName(), members.getDepart(), members.getQuestion(), members.getAnswer());
+        return checkMembers;
+    }
+	
+	public void updatePw(Members members) {
+	     membersRepository.updateByPassword(members.getPassword(), members.getMemberDepId());
 	}
 	
 }

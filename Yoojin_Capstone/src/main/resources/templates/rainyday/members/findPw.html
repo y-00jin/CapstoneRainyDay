@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>RainyDay</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/rainyday/css/members/signUp.css" />
+	<link rel="stylesheet" href="/rainyday/css/members/findPw.css" />
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		$(document).ready(function () {
@@ -31,29 +31,8 @@
 					$('#selectQuestion').css('color', '#6f7577');
 				}
 			});
-
-			$('.pw').focusout(function(){
-    	var pass1 = $("#userPassword").val();
-        var pass2 = $("#userPasswordCheck").val();
-        
-        if (pass1 != "" || pass2 != ""){
-        	if (pass1 == pass2){
-            	$("#pw-success").css('display','flex')
-				$("#pw-fail").css('display','none')
-            } else {
-            	$("#pw-success").css('display','none')
-				$("#pw-fail").css('display','flex')
-            }
-        }
-
-	});
-
-
 		});
 	</script>
-	
-	
-	
 </head>
 
 <body>
@@ -61,35 +40,14 @@
 		<div class="container">
 			<div class="content">
 				<header class="major">
-					<h2>Sign Up</h2>
+					<h2>비밀번호 찾기</h2>
 				</header>
 
-				<div class="UserOrAdmin">
-					<input type="button" value="사용자"  onClick="window.location.href='/rainyday/members/signUpUser'"/>
-					<input type="button" id="btnAdmin"  value="관리자" />
-				</div>
-
-				<form action="/rainyday/members/signUpAdmin" method="post"  th:object="${membersFormDto}">
-
-
-				
-				<!-- <div class="divInputId"> -->
-				<input type="text"  th:field="*{memberDepId}" id="userId" placeholder="학번" />
-				<!-- <input type="button" id="idCheck" value="중복 확인"/> -->
-				<!-- </div> -->
-				<input type="text" id="inputUserCheck" th:value="${userCheck}" disabled/>
-
-				
-				<input type="password" th:field="*{password}" class="pw" id="userPassword" placeholder="비밀번호" />
-				<input type="password" id="userPasswordCheck" class="pw" placeholder="비밀번호 재확인" />
-				<span id="pw-success" class="span-pw" style="display: none;color:#1DDB16">비밀번호가 일치합니다.</span>
-				<span id="pw-fail" class="span-pw" style="display: none;color:red">비밀번호가 일치하지 않습니다.</span>
-				
-				
-				
+				<form action="/rainyday/members/findPw" method="post" th:object="${membersFormDto}">
+				<input type="text" th:field="*{memberDepId}" id="userId" placeholder="학번" />
 				<input type="text" th:field="*{name}" id="userName" placeholder="이름" />
-				
-				<select name="userDepart" th:field="*{depart}" id="selectDepar" >
+
+				<select name="userDepart" th:field="*{depart}" id="selectDepar">
 					<option value="" selected disabled>학과</option>
 					<option value="컴퓨터시스템과" id="computerSystem">컴퓨터시스템과</option>
 					<option value="컴퓨터정보과" id="computerInforma">컴퓨터정보과</option>
@@ -113,22 +71,15 @@
 
 
 				<input type="text" th:field="*{answer}" id="userAnswer" placeholder="본인 확인 답변" />
-				<input type="text" th:field="*{admin}"id="adminKey" placeholder="관리자용 키"/>
-				
-				
-				<input type="text" id="spaceCheck" th:value="${spaceCheck}" disabled/>
-				<input type="submit" value="Sign Up" />
+				<input type="text" id="contentCheck" th:value="${contentCheck}" disabled />
+				<input type="submit" value="비밀번호 찾기" id="btnFindPw"/>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-				
-				</form>
-				
-				
-				
-				<div class="divLoginFoot">
-					<input type="button" id="btnBack" value="돌아가기"
-						onClick="window.location.href='/rainyday/members/introPage'" />
-				</div>
+			</form>
+
+			<div class="divLoginFoot">
+				<input type="button" id="btnBack" value="돌아가기" onClick="window.location.href='/rainyday/members/introPage'" />
 			</div>
+		</div>
 
 		</div>
 		<section id="footer">
