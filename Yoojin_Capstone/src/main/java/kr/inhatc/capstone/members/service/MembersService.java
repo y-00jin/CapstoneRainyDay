@@ -80,4 +80,16 @@ public class MembersService {
 	     membersRepository.updateByPassword(members.getPassword(), members.getMemberDepId());
 	}
 	
+	public Members findByAdmin(Members members) {
+	    Members findMembers =  membersRepository.findByAdmin(members.getMemberDepId(), members.getPassword());
+	    if(findMembers != null) {
+	         return findMembers;
+	    }
+	    else {
+	        return new Members();
+	    }
+	   
+	    
+	}
+	
 }

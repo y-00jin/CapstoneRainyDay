@@ -25,8 +25,9 @@ public class MembersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    private String staticMemberDep;
+    static public String staticMemberDep;
     
+
     /**
      * 시작 화면 introPage
      * 
@@ -58,7 +59,14 @@ public class MembersController {
         System.out.println("=========================> 로그인 체크 " + loginCheck);
 
         if (loginCheck == true) { // 로그인 성공
-            return "redirect:/"; // 메인 페이지로 이동
+            
+            Members findMembers = membersService.findByAdmin(members);
+            
+            if(findMembers.getAdmin().equals("N")) {
+                return "redirect:/rainyday/main/user/userUmbrella"; // 사용자 메인 페이지로 이동
+            } else {
+                return "redirect:/rainyday/main/admin/adminUmbrella";   // 관리자 메인 페이지로 이동
+            }
         } else {
             model.addAttribute("loginCheck", "아이디 및 비밀번호를 확인하세요");
             return "rainyday/members/introPage"; // 로그인 실패

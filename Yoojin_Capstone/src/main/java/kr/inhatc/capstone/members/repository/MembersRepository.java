@@ -49,10 +49,20 @@ public interface MembersRepository extends JpaRepository<Members, Long>, Queryds
 	 */
 	Members findByMemberDepIdAndNameAndDepartAndQuestionAndAnswer(String memberDepId,String name, String depart, String question, String answer);
 	
+	/**
+	 * 아이디, 비밀번호로 관리자인지 조회
+	 * @param memberDepId
+	 * @param password
+	 * @return
+	 */
+	@Query(value = "select m from Members m where m.memberDepId = :memberDepId and m.password = :password")
+	Members findByAdmin(@Param ("memberDepId")String memberDepId, @Param ("password")String password);
+
 	@Modifying // update시 추가해줘야함
 	@Transactional // update시 추가해줘야함
-	@Query(value = "update Members set password =:password where member_dep_id = :memberDepId")
+	@Query(value = "update Members set password =:password where memberDepId = :memberDepId")
 	void updateByPassword(@Param ("password")String password, @Param ("memberDepId")String memberDepId);
+	
 	
 
 }
