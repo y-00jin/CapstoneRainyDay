@@ -18,6 +18,7 @@ public class MembersService {
 
 	
 	public Members saveMember(Members members) {
+	    validateDuplicate(members); // 사용자 중복 체크
 		return membersRepository.save(members); // 저장된 멤버를 리턴
 	}
 	
@@ -25,15 +26,26 @@ public class MembersService {
      * 사용자 중복 체크
      * @param member
      */
-    public boolean validateDuplicate(Members members) {
+    public void validateDuplicate(Members members) {
         Members findMemberDepId = membersRepository.findByMemberDepId(members.getMemberDepId());
-        if(findMemberDepId != null) {    // 중복
-            return false;
-        }
-        else {
-            return true;
+        if (findMemberDepId != null) { // 중복
+            throw new IllegalStateException("이미 등록된 사용자 입니다.");
         }
     }
+    
+    /**
+    * 사용자 중복 체크
+    * @param member
+    */
+   public boolean validateDuplicateMember(Members members) {
+       Members findMemberDepId = membersRepository.findByMemberDepId(members.getMemberDepId());
+       if(findMemberDepId != null) {    // 중복
+           return false;
+       }
+       else {
+           return true;
+       }
+   }
 	
 	/**
 	 * 로그인 시 아이디와 비밀번호로 조회

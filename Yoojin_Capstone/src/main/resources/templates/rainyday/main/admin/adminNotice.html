@@ -24,9 +24,10 @@
 	<div id="wrapper">
 
 		<nav id="nav">
-			<a href='/rainyday/main/user/userUmbrella' class="icon solid fa-umbrella"><span>Umbrella</span></a> 
-			<a href="/rainyday/main/user/userRental" class="icon solid fa-hand-holding-heart"><span>Rental</span></a>
-			<a href="/rainyday/main/user/userNotice" class="icon solid fa-bullhorn"><span>Notice</span></a>
+			<a href='/rainyday/main/admin/adminUmbrella' class="icon solid fa-umbrella"><span>Umbrella</span></a> 
+			<a href='/rainyday/main/admin/adminStudent' class="icon solid fa-user"><span>Student</span></a>
+			<a href="/rainyday/main/admin/adminRental" class="icon solid fa-hand-holding-heart"><span>Rental</span></a>
+			<a href="/rainyday/main/admin/adminNotice" class="icon solid fa-bullhorn"><span>Notice</span></a>
 			<a href="/rainyday/members/introPage" class="icon solid fa-circle-xmark"><span>Exit</span></a>
 
 
@@ -38,22 +39,39 @@
 			<article id="student" class="panel intro">
 				<header>
 					
-					<h3>| 우산 목록</h3> <br/>
+					<h3>| 공지</h3> <br/>
 					
-					<div style="height: 200px; margin: 0 auto; overflow: auto">
+					<div style="height: 300px; margin: 0 auto; overflow: auto">
 						<table class="default">
 							<thead>
 								<tr>
-									<th>사용</th>
-									<th>잔여</th>
+									<th>글번호</th>
+									<th>제목</th>
+									<th>작성일</th>
+									<th>조회수</th>
 								</tr>
 							</thead>
 
 							<tbody>
 							
 								<tr>
-									<td>5 / 30</td>
-									<td>25</td>
+									<td>3</td>
+									<td>우산 대여 안내</td>
+									<td>2022.10.1</td>
+									<td>35</td>
+								</tr>
+															
+								<tr>
+									<td>2</td>
+									<td>우산 반납 공지</td>
+									<td>2022.09.20</td>
+									<td>17</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>우산 대여 시간 안내</td>
+									<td>2022.09.15</td>
+									<td>58</td>
 								</tr>
 								
 							</tbody>
@@ -61,6 +79,7 @@
 
 					</div>
 
+				<input type="submit" id="btnWrite" value="글쓰기" />
 				</header>
 				
 				

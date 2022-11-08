@@ -11,11 +11,28 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequestMapping("/rainyday/main/user")
 public class UserMainController {
-
+    
+    
     @GetMapping(value = "/userUmbrella")
-    public String adminUmbrella(Model model) {
+    public String userUmbrella(Model model) {
 //        model.addAttribute("membersFormDto", new MembersFormDto());
 //        model.addAttribute("loginCheck", "");
         return "rainyday/main/user/userUmbrella";
+    }
+    
+    @GetMapping(value = "/userRental")
+    public String userRental(Model model) {
+//        model.addAttribute("membersFormDto", new MembersFormDto());
+//        model.addAttribute("loginCheck", "");
+        System.out.println("eeeeeeeeeeeeeee");
+        return "rainyday/main/user/userRental";
+    }
+    
+    @GetMapping(value = "/userNotice")
+    public String userNotice(Model model) {
+//        model.addAttribute("membersFormDto", new MembersFormDto());
+//        model.addAttribute("loginCheck", "");
+        System.out.println("qqqqqqq");
+        return "rainyday/main/user/userNotice";
     }
 }

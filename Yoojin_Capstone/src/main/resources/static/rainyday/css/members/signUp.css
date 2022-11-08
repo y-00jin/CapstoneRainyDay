@@ -3235,6 +3235,12 @@ input, select, textarea {
 	margin: -1em auto;
 }
 
+.divDep{
+	background-color: black;
+	width:90%;
+	display: flex;
+}
+
 #idCheck, #btnAdminCheck{
 	width:30%;
 }
@@ -3242,6 +3248,7 @@ input, select, textarea {
 #inputUserCheck[value=""], #spaceCheck[value=""]{
 	display: none;
 }
+
 
 #inputUserCheck[value="이미 사용중인 아이디입니다."], #spaceCheck[value="정보를 모두 입력해주세요."], #spaceCheck[value="관리자용 키를 확인해주세요."]{
 	background-color: transparent;
@@ -3259,12 +3266,13 @@ input, select, textarea {
 	height: 1em;
 	padding-left: 0.5em;
 }
-.span-pw{
+
+/*.span-pw{
 	text-align: left;
 	margin-left: 2.5em;
 	margin-top: -0.5em;
 	margin-bottom: -0.5em;
-}
+}*/
 	@font-face {
 		font-family: 'Garam';
 		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_04@1.0/Garam.woff') format('woff');

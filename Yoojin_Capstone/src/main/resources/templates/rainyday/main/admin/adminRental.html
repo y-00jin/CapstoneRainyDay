@@ -30,69 +30,72 @@
 			<a href="/rainyday/main/admin/adminNotice" class="icon solid fa-bullhorn"><span>Notice</span></a>
 			<a href="/rainyday/members/introPage" class="icon solid fa-circle-xmark"><span>Exit</span></a>
 
+
 		</nav>
 
 		<div id="main">
-
-
-			<article id="umbrella" class="panel intro">
-
-
+		
+			
+			<article id="student" class="panel intro">
 				<header>
-					<h3>| 우산 등록 · 삭제</h3>
+					<h3>| 우산 대여</h3>
 					<form>
+
+						<div class="divUmList">
+							<label> <input type="radio" name="rbRental" value="rbSearch" checked /> <span id="radioSpan">검색</span>
+							</label> <label> <input type="radio" name="rbRental" value="rbRent" /> <span id="radioSpan">대여</span>
+							</label> <label> <input type="radio" name="rbRental" value="rbReturn" /> <span id="radioSpan">반납</span>
+							</label>
+
+						</div>
+
 						<div class="divUmTitle">
 
-							<input type="text" id="umId" /> <input type="submit"
-								id="btnInsert" value="등록" /> <input type="button"
-								id="btnDelete" value="삭제" />
+							<input type="text" id="inputDepId" placeholder="학번"/> 
+							<input type="text" id="inputUmId" placeholder="우산 번호"/>
+							<input type="submit" id="btnStudentSearch" value="확인" />
 
 						</div>
 					</form>
-					<hr>
-
-					<form>
-						<div class="divUmList">
-							<h3>| 우산 목록</h3>
-							<a id="aRentalState">대여 상태 : </a> <label> <input
-								type="radio" name="rentalState" value="Y" checked /> <span
-								id="radioSpan">Y</span>
-							</label> <label> <input type="radio" name="rentalState" value="N" />
-								<span id="radioSpan">N</span>
-							</label> <input type="submit" id="btnSearch" value="검색" />
-						</div>
-					</form>
-
-
+					
+					<hr/>
+					<h3>| 대여 대여</h3> <br/>
+					
 					<div style="height: 300px; margin: 0 auto; overflow: auto">
 						<table class="default">
 							<thead>
 								<tr>
-									<th>우산 번호</th>
-									<th>대여 상태</th>
+									<th>학번</th>
+									<th>이름</th>
+									<th>학과</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr>
-									<td>U001</td>
-									<td>Y</td>
+									<td>202045067</td>
+									<td>이유진</td>
+									<td>컴퓨터시스템과</td>
 								</tr>
 								<tr>
-									<td>U002</td>
-									<td>N</td>
+									<td>201903056</td>
+									<td>가창묵</td>
+									<td>화학생명공학과</td>
 								</tr>
 								<tr>
-									<td>U003</td>
-									<td>N</td>
+									<td>202045045</td>
+									<td>신민영</td>
+									<td>컴퓨터시스템과</td>
 								</tr>
 								<tr>
-									<td>U004</td>
-									<td>Y</td>
+									<td>202045000</td>
+									<td>방민욱</td>
+									<td>컴퓨터시스템과</td>
 								</tr>
 								<tr>
-									<td>U005</td>
-									<td>N</td>
+									<td>202045001</td>
+									<td>강시연</td>
+									<td>컴퓨터시스템과</td>
 								</tr>
 							</tbody>
 						</table>
@@ -100,7 +103,8 @@
 					</div>
 
 				</header>
-		
+			</article>
+
 		</div>
 	</div>
 

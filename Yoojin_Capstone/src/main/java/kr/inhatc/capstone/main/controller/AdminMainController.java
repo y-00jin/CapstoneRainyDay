@@ -17,7 +17,31 @@ public class AdminMainController {
     public String adminUmbrella(Model model) {
 //        model.addAttribute("membersFormDto", new MembersFormDto());
 //        model.addAttribute("loginCheck", "");
+        System.out.println("fffffffffffffffffffffffffffff");
         return "rainyday/main/admin/adminUmbrella";
     }
+    
+    @GetMapping(value = "/adminStudent")
+    public String adminStudent(Model model) {
+//        model.addAttribute("membersFormDto", new MembersFormDto());
+//        model.addAttribute("loginCheck", "");
+        System.out.println("dddddddddddddddddddddddddddddddddddddddd");
+        return "rainyday/main/admin/adminStudent";
+    }
 
+    @GetMapping(value = "/adminRental")
+    public String adminRental(Model model) {
+//        model.addAttribute("membersFormDto", new MembersFormDto());
+//        model.addAttribute("loginCheck", "");
+        System.out.println("eeeeeeeeeeeeeee");
+        return "rainyday/main/admin/adminRental";
+    }
+    
+    @GetMapping(value = "/adminNotice")
+    public String adminNotice(Model model) {
+//        model.addAttribute("membersFormDto", new MembersFormDto());
+//        model.addAttribute("loginCheck", "");
+        System.out.println("qqqqqqq");
+        return "rainyday/main/admin/adminNotice";
+    }
 }

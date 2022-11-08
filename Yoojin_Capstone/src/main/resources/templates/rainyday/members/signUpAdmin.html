@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .fieldError {
+            color: red;
+            text-align: left;
+            padding-left:2.5em;
+            margin-top:-0.5em;
+            margin-bottom: -0.5em;
+            
+        }
+    </style>
+</th:block>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+
+</th:block>
+
+
 <head>
 	<meta charset="UTF-8">
 	<title>RainyDay</title>
@@ -31,24 +60,6 @@
 					$('#selectQuestion').css('color', '#6f7577');
 				}
 			});
-
-			$('.pw').focusout(function(){
-    	var pass1 = $("#userPassword").val();
-        var pass2 = $("#userPasswordCheck").val();
-        
-        if (pass1 != "" || pass2 != ""){
-        	if (pass1 == pass2){
-            	$("#pw-success").css('display','flex')
-				$("#pw-fail").css('display','none')
-            } else {
-            	$("#pw-success").css('display','none')
-				$("#pw-fail").css('display','flex')
-            }
-        }
-
-	});
-
-
 		});
 	</script>
 	
@@ -75,19 +86,15 @@
 				
 				<!-- <div class="divInputId"> -->
 				<input type="text"  th:field="*{memberDepId}" id="userId" placeholder="학번" />
-				<!-- <input type="button" id="idCheck" value="중복 확인"/> -->
-				<!-- </div> -->
+				<p th:if="${#fields.hasErrors('memberDepId')}" th:errors="*{memberDepId}" class="fieldError">Incorrect data</p>
 				<input type="text" id="inputUserCheck" th:value="${userCheck}" disabled/>
 
 				
 				<input type="password" th:field="*{password}" class="pw" id="userPassword" placeholder="비밀번호" />
-				<input type="password" id="userPasswordCheck" class="pw" placeholder="비밀번호 재확인" />
-				<span id="pw-success" class="span-pw" style="display: none;color:#1DDB16">비밀번호가 일치합니다.</span>
-				<span id="pw-fail" class="span-pw" style="display: none;color:red">비밀번호가 일치하지 않습니다.</span>
-				
-				
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
 				
 				<input type="text" th:field="*{name}" id="userName" placeholder="이름" />
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
 				
 				<select name="userDepart" th:field="*{depart}" id="selectDepar" >
 					<option value="" selected disabled>학과</option>
@@ -101,6 +108,7 @@
 					<option value="전기공학과" id="Electrical">전기공학과</option>
 					<option value="공간정보빅데이터과" id="bigData">공간정보빅데이터과</option>
 				</select>
+				<p th:if="${#fields.hasErrors('depart')}" th:errors="*{depart}" class="fieldError">Incorrect data</p>
 
 				<select name="userQuestion" th:field="*{question}" id="selectQuestion">
 					<option value="" selected disabled>본인 확인 질문</option>
@@ -110,13 +118,15 @@
 					<option value="가장 기억에 남는 책은?" id="book">가장 기억에 남는 책은?</option>
 					<option value="가장 기억에 남는 영화는?" id="movie">가장 기억에 남는 영화는?</option>
 				</select>
-
+				<p th:if="${#fields.hasErrors('question')}" th:errors="*{question}" class="fieldError">Incorrect data</p>
 
 				<input type="text" th:field="*{answer}" id="userAnswer" placeholder="본인 확인 답변" />
+				<p th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}" class="fieldError">Incorrect data</p>
+				
 				<input type="text" th:field="*{admin}"id="adminKey" placeholder="관리자용 키"/>
-				
-				
 				<input type="text" id="spaceCheck" th:value="${spaceCheck}" disabled/>
+				
+				
 				<input type="submit" value="Sign Up" />
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				
