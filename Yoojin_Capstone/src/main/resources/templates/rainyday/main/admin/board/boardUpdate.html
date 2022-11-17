@@ -12,7 +12,9 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="/rainyday/css/main/main.css" />
+<link rel="stylesheet" href="/rainyday/css/board/board.css" />
+
+
 <noscript>
 	<link rel="stylesheet" href="rainyday/css/main/noscript.css" />
 </noscript>
@@ -38,50 +40,33 @@
 			
 			<article id="student" class="panel intro">
 				<header>
+					<h3>| 공지 작성</h3>
+					<hr/>
+					<form>
 					
-					<h3>| 공지</h3> <br/>
-					
-					<div style="height: 300px; margin: 0 auto; overflow: auto">
-						<table class="default">
-							<thead>
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th>작성일</th>
-									<th>조회수</th>
-								</tr>
-							</thead>
+						<br/>
+						
 
-							<tbody>
+						<div class="boardForm">
+							<span class="input-text" >제목</span>
+							<input type="text"   />
+						</div>
+						
+						<div class="boardForm">
+							<span class="input-text"  id="input-text-content">내용</span>
+							<textarea class="taContent"></textarea>
 							
-								<tr>
-									<td>3</td>
-									<td onClick="location.href='/rainyday/main/board/detail'">우산 대여 안내</td>
-									<td>2022.10.1</td>
-									<td>35</td>
-								</tr>
-															
-								<tr>
-									<td>2</td>
-									<td>우산 반납 공지</td>
-									<td>2022.09.20</td>
-									<td>17</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>우산 대여 시간 안내</td>
-									<td>2022.09.15</td>
-									<td>58</td>
-								</tr>
-								
-							</tbody>
-						</table>
-
-					</div>
-				<input type="button" id="btnWrite" value="글쓰기" onClick="window.location.href='/rainyday/main/admin/board/write'" />
+						</div>
+						
+						<div class="boardForm">
+							<input type="button" id="btnCancel" value="취소" onClick="window.location.href='/rainyday/main/board/detail'" />
+							<input type="button" value="저장" />
+						</div>
+						
+					</form>
+					
+					
 				</header>
-				
-				
 			</article>
 
 		</div>
