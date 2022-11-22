@@ -9,6 +9,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.members.entity.Members;
 
 public interface MembersRepository extends JpaRepository<Members, Long>, QuerydslPredicateExecutor<Members>{
@@ -58,12 +59,24 @@ public interface MembersRepository extends JpaRepository<Members, Long>, Queryds
 	@Query(value = "select m from Members m where m.memberDepId = :memberDepId and m.password = :password")
 	Members findByAdmin(@Param ("memberDepId")String memberDepId, @Param ("password")String password);
 
+	/**
+	 * 비밀번호 변경
+	 * @param password
+	 * @param memberDepId
+	 */
 	@Modifying // update시 추가해줘야함
 	@Transactional // update시 추가해줘야함
 	@Query(value = "update Members set password =:password where memberDepId = :memberDepId")
 	void updateByPassword(@Param ("password")String password, @Param ("memberDepId")String memberDepId);
 	
+	/**
+	 * 입력한 정보로 멤버 조회
+	 * @param memberDepId
+	 * @param name
+	 * @param depart
+	 * @return
+	 */
+	@Query(value = "select * from t_member where member_dep_id like %:memberDepId% or name like %:name% or depart like %:depart%", nativeQuery = true)
+	List<Members> MembersFindOr(@Param ("memberDepId")String memberDepId, @Param ("name")String name, @Param ("depart")String depart);
 	
-
-
 }

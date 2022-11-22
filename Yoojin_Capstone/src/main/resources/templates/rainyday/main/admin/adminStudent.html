@@ -39,27 +39,17 @@
 			<div id="student" class="panel intro">
 				<header>
 					<h3>| 학생 조회</h3>
-					<form>
-
-						<div class="divUmList">
-							<a id="aFilter">검색 조건 : </a> <label> <input type="radio"
-								name="searchStudent" value="studentId" checked /> <span
-								id="radioSpan">학번</span>
-							</label> <label> <input type="radio" name="searchStudent"
-								value="studentName" /> <span id="radioSpan">이름</span>
-							</label> <label> <input type="radio" name="searchStudent"
-								value="dpart" /> <span id="radioSpan">학과</span>
-							</label>
-
-						</div>
+					<form action="/rainyday/main/admin/adminStudent" method="post" th:object="${membersFormDto}">
 
 						<div class="divUmTitle">
 
-							<input type="text" id="studentInput" /> <input type="submit"
-								id="btnStudentSearch" value="조회" />
-
+							<input type="text" th:field="*{memberSelect}" id="studentInput" placeholder="검색할 학번 or 이름 or 학과를 입력해주세요" /> 
+							<input type="submit" id="btnStudentSearch" value="조회" />
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">	
 						</div>
+						
 					</form>
+				
 					<div style="height: 300px; margin: 0 auto; overflow: auto">
 						<table class="default">
 							<thead>
@@ -78,7 +68,6 @@
 								<td th:text="${membersDto.name}"></td>
 								<td th:text="${membersDto.depart}"></td>
 								</tr>
-								
 								
 							</tbody>
 						</table>

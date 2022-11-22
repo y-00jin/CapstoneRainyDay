@@ -276,11 +276,11 @@ table {
 		font-weight: 700;
 	} */
 
-	form input[type="text"],
-	form input[type="email"],
-	form input[type="password"],
-	form select,
-	form textarea {
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	select,
+	textarea {
 		/*-moz-appearance: none;
 		 -webkit-appearance: none;
 		 -ms-appearance: none;
@@ -1049,11 +1049,24 @@ table {
 			width: 50%;
 		}
 
+		
 #inputDepId, #inputUmId{
 	width:30%;
 	margin-left: 1em;
 }
+		#rentError[value=""]{
+		display: none;
+		}
 		
+		#rentError[value="반납 정보를 확인하세요."], #rentError[value="대여 정보를 입력해주세요."], #rentError[value="이미 대여 내역이 있는 학번 또는 우산입니다."], #rentError[value="반납 정보를 입력해주세요."]{
+	background-color: transparent;
+	box-shadow:none;
+	font-family: 'Garam';
+	color: red;
+	height: 1em;
+	padding-left: 0.5em;
+}
+
 		@font-face {
 			font-family: 'Garam';
 			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_04@1.0/Garam.woff') format('woff');

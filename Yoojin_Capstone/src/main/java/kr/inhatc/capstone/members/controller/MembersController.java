@@ -15,6 +15,7 @@ import kr.inhatc.capstone.members.constant.Role;
 import kr.inhatc.capstone.members.dto.MembersFormDto;
 import kr.inhatc.capstone.members.entity.Members;
 import kr.inhatc.capstone.members.service.MembersService;
+import kr.inhatc.capstone.utils.DataUtils;
 import lombok.extern.log4j.Log4j2;
 
 @Controller // 리턴 정보를 클라이언트에 전달
@@ -28,6 +29,9 @@ public class MembersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    
+    DataUtils dataUtils = new DataUtils();
+    
     static public String staticMemberDep;
 
     /**
@@ -65,7 +69,9 @@ public class MembersController {
         if (loginCheck == true) { // 로그인 성공
 
             Members findMembers = membersService.findByAdmin(members);
-
+            
+            DataUtils.setStaticMemberDep(membersFormDto.getMemberDepId());
+            
             if (findMembers.getRole().equals(Role.USER)) {
                 return "redirect:/rainyday/main/user/userUmbrella"; // 사용자 메인 페이지로 이동
             } else {
@@ -100,23 +106,6 @@ public class MembersController {
     public String signUpUser(@Valid MembersFormDto membersFormDto, BindingResult bindingResult, Model model) {
 
         log.info("===============================> " + membersFormDto);
-
-//        boolean memberCheck = membersService.validateDuplicate(members);
-
-//        if (memberCheck == false || members.getMemberDepId().equals("") || members.getMemberDepId() == null) { // 아이디
-//                                                                                                               // 중복일 경우
-//            model.addAttribute("userCheck", "이미 사용중인 아이디입니다.");
-//            return "rainyday/members/signUpUser";
-//        } else {
-//            model.addAttribute("userCheck", "사용 가능한 아이디입니다.");
-
-        // 모든 정보를 입력하지 않았을 경우
-//            if (members.getMemberDepId() == null || members.getMemberDepId().equals("") || members.getPassword() == null
-//                    || members.getPassword().equals("") || members.getDepart() == null || members.getDepart().equals("")
-//                    || members.getAnswer() == null || members.getAnswer().equals("") || members.getQuestion() == null
-//                    || members.getQuestion().equals("") || members.getName() == null || members.getName().equals("")) {
-//                model.addAttribute("spaceCheck", "정보를 모두 입력해주세요.");
-//                return "rainyday/members/signUpUser";
 
         if (bindingResult.hasErrors()) { // 형식이 안 맞거나 정보를 안넣음 오류
             return "rainyday/members/signUpUser";
@@ -283,7 +272,9 @@ public class MembersController {
                 model.addAttribute("contentCheck", "입력한 정보와 일치하는 아이디가 없습니다.");
                 return "rainyday/members/findPw";
             } else {
-                staticMemberDep = checkMembers.getMemberDepId();
+                
+                DataUtils.setStaticMemberDep(checkMembers.getMemberDepId());
+                
                 return "rainyday/members/findPwDetail";
             }
 
@@ -314,7 +305,7 @@ public class MembersController {
     public String findPwDetail(MembersFormDto membersFormDto, Model model) {
 
         Members members = Members.createMembers(membersFormDto, passwordEncoder); // 웹에서 submit해서 받은 정보로 member 객체 만들기
-        members.setMemberDepId(staticMemberDep);
+        members.setMemberDepId(DataUtils.getStaticMemberDep());
         System.out.println("+++++++++++++++++++++++++++++++++++ " + members);
        
         if (members.getPassword() == null || members.getPassword().equals("")) {
@@ -326,5 +317,9 @@ public class MembersController {
         }
 
     }
+
+
+
+    
     
 }

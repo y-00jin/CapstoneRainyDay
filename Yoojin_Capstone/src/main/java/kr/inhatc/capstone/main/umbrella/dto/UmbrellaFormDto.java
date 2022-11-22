@@ -12,14 +12,8 @@ import lombok.ToString;
 @ToString
 public class UmbrellaFormDto {
 
-    
-    
     private String umName;                       // 우산 이름
     
     private String umRentalState;             // 대여 상태
     
-    private String umRentalMemberId;          // 대여 학생
-    
-
-	
 }

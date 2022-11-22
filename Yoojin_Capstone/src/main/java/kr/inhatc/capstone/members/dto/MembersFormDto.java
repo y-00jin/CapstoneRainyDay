@@ -31,4 +31,6 @@ public class MembersFormDto {
 	
 	private String admin;					//관리자 확인
 	
+	private String memberSelect;
+	
 }

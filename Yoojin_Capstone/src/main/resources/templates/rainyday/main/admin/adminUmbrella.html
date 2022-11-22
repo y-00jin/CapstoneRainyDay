@@ -40,26 +40,39 @@
 
 				<header>
 					<h3>| 우산 등록 · 삭제</h3>
-					<form>
 						<div class="divUmTitle">
 
-							<input type="text" id="umId" /> <input type="submit"
-								id="btnInsert" value="등록" /> <input type="button"
-								id="btnDelete" value="삭제" />
+							<input type="text" id="umId" /> 
+							<input type="submit" id="btnInsert" value="등록" /> 
+							<input type="button" id="btnDelete" value="삭제" />
 
 						</div>
-					</form>
 					<hr>
 
-					<form>
+					<form action="/rainyday/main/admin/adminUmbrella" method="post" th:object="${umbrellaFormDto}">
 						<div class="divUmList">
 							<h3>| 우산 목록</h3>
-							<a id="aRentalState">대여 상태 : </a> <label> <input
-								type="radio" name="rentalState" value="Y" checked /> <span
-								id="radioSpan">Y</span>
-							</label> <label> <input type="radio" name="rentalState" value="N" />
-								<span id="radioSpan">N</span>
-							</label> <input type="submit" id="btnSearch" value="검색" />
+							<a id="aRentalState">대여 상태 : </a> 
+							
+							<label> 
+							<input type="radio" th:field="*{umRentalState}" th:value="All"/>
+							<span id="radioSpan">All</span>
+							</label>
+							
+							<label> 
+							<input type="radio" th:field="*{umRentalState}" th:value="Y"/> 
+							<span id="radioSpan">Y</span>
+							</label> 
+							
+							<label> 
+							<input type="radio" th:field="*{umRentalState}" th:value="N"/>
+							<span id="radioSpan">N</span>
+							</label> 
+							
+							
+							
+							<input type="submit" id="btnSearch" value="검색" />
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 						</div>
 					</form>
 

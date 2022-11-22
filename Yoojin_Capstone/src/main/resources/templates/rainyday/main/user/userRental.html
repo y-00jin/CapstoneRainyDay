@@ -53,18 +53,21 @@
 
 							<tbody>
 							
-								<tr>
-									<td>R001</td>
-									<td>U001</td>
-									<td>2022.10.19</td>
-									<td>2022.10.26</td>
-								</tr>
+							<tr th:each="rentalDto, status: ${rentalList}">
+								<td th:text="${rentalDto.id}"></td>
+								<td th:text="${rentalDto.umName}"></td>
+								<td th:text="${#temporals.format(rentalDto.rentalDate, 'yyyy-MM-dd')}"></td>
+								<td th:text="${#temporals.format(rentalDto.returnDate, 'yyyy-MM-dd')}"></td>
+							</tr>
+								
 								
 							</tbody>
 						</table>
 
 					</div>
+					
 					<input type="submit" id="btnExtension" value="연장" />
+					
 				</header>
 				
 				

@@ -18,15 +18,26 @@ public class UmbrellaService {
 
 	private final UmbrellaRepository umbrellaRepository;
 
-	public List<Umbrella> findAllUmbrella() {
+	public List<Umbrella> findAllUmbrella(String rentalState) {
 	    
-	    List<Umbrella> umbrellaList = umbrellaRepository.findAll();
+	    List<Umbrella> umbrellaList = umbrellaRepository.findRentalState(rentalState);
 	    return umbrellaList;
-	    
 	    
 	}
 	
+	public List<Umbrella> findAll() {
+        
+        List<Umbrella> umbrellaList = umbrellaRepository.findAll();
+        return umbrellaList;
+        
+    }
 
+	public int countUmAll() {
+	    return umbrellaRepository.countUmAll();
+	}
 
+	public int countUmRentallY() {
+        return umbrellaRepository.countUmRentallY();
+    }
 	
 }

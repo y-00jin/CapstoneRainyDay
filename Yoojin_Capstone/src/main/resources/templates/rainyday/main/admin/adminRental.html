@@ -17,7 +17,6 @@
 	<link rel="stylesheet" href="rainyday/css/main/noscript.css" />
 </noscript>
 
-
 </head>
 <body class="is-preload">
 
@@ -39,64 +38,60 @@
 			<article id="student" class="panel intro">
 				<header>
 					<h3>| 우산 대여</h3>
-					<form>
+					<form action="/rainyday/main/admin/adminRental" method="post" th:object="${rentalFormDto}">
 
 						<div class="divUmList">
-							<label> <input type="radio" name="rbRental" value="rbSearch" checked /> <span id="radioSpan">검색</span>
-							</label> <label> <input type="radio" name="rbRental" value="rbRent" /> <span id="radioSpan">대여</span>
-							</label> <label> <input type="radio" name="rbRental" value="rbReturn" /> <span id="radioSpan">반납</span>
-							</label>
-
+						
+							<label> <input type="radio" th:field="*{rbRental}" th:value="rbSearch"/> <span id="radioSpan">검색</span></label>
+							
+							<label> <input type="radio" th:field="*{rbRental}" th:value="rbRent" /> <span id="radioSpan">대여</span></label> 
+							<label> <input type="radio" th:field="*{rbRental}" th:value="rbReturn" /> <span id="radioSpan">반납</span></label>
+							
 						</div>
 
 						<div class="divUmTitle">
 
-							<input type="text" id="inputDepId" placeholder="학번"/> 
-							<input type="text" id="inputUmId" placeholder="우산 번호"/>
+							<input type="text" th:field="*{umRentalMemberId}" id="inputDepId" placeholder="학번"/>
+							
+							<input type="text" th:field="*{umName}" id="inputUmId" placeholder="우산 번호"/>
+							
 							<input type="submit" id="btnStudentSearch" value="확인" />
-
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">	
 						</div>
+						
+						<input type="text" id="rentError" th:value="${rentError}" disabled/>
+						
 					</form>
 					
 					<hr/>
-					<h3>| 대여 대여</h3> <br/>
+					<h3>| 대여</h3> <br/>
 					
 					<div style="height: 300px; margin: 0 auto; overflow: auto">
 						<table class="default">
 							<thead>
 								<tr>
+									<th>대여 번호</th>
+									<th>우산 번호</th>
 									<th>학번</th>
-									<th>이름</th>
-									<th>학과</th>
+									<th>대여 날짜</th>
+									<th>반납 날짜</th>
+									<th>연장 상태</th>
 								</tr>
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>202045067</td>
-									<td>이유진</td>
-									<td>컴퓨터시스템과</td>
+							
+							
+								<tr th:each="rentalDto, status: ${rentalList}">
+								<td th:text="${status.index}"></td>
+								<td th:text="${rentalDto.umName}"></td>
+								<td th:text="${rentalDto.umRentalMemberId}"></td>
+								<td th:text="${#temporals.format(rentalDto.rentalDate, 'yyyy-MM-dd')}"></td>
+								<td th:text="${#temporals.format(rentalDto.returnDate, 'yyyy-MM-dd')}"></td>
+								<td th:text="${rentalDto.extensionYn}"></td>
 								</tr>
-								<tr>
-									<td>201903056</td>
-									<td>가창묵</td>
-									<td>화학생명공학과</td>
-								</tr>
-								<tr>
-									<td>202045045</td>
-									<td>신민영</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
-								<tr>
-									<td>202045000</td>
-									<td>방민욱</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
-								<tr>
-									<td>202045001</td>
-									<td>강시연</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
+								
+								
 							</tbody>
 						</table>
 

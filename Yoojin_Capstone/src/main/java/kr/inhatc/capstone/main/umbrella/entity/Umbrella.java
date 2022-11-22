@@ -33,9 +33,7 @@ public class Umbrella {
     
     @Column(length = 20)
     private String umRentalState;             // 대여 상태
-    
-    @Column(length = 20) 
-    private String umRentalMemberId;          // 대여 학생
+
     
     
 }

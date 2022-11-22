@@ -109,9 +109,17 @@ public class MembersService {
         
         List<Members> membersList = membersRepository.findAll();
         return membersList;
-	    
-        
         
     }
+	
+	public List<Members> MembersFindOr(String memberInfo) {
+        
+        List<Members> membersList = membersRepository.MembersFindOr(memberInfo, memberInfo, memberInfo);
+        return membersList;
+        
+    }
+	
+	
+	
 	
 }
