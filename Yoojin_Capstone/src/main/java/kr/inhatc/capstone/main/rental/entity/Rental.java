@@ -1,4 +1,4 @@
-package kr.inhatc.capstone.main.umbrella.entity;
+package kr.inhatc.capstone.main.rental.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,25 +14,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "t_umbrella")
+@Table(name = "t_rental")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Umbrella {
+public class Rental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql : IDENTITY / oracle : SEQUENCE
-    @Column(name = "um_id")
+    @Column(name = "rental_id",  unique = true)
     private Long id;            // 상품 코드
     
     
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String umName;
     
     @Column(length = 20)
-    private String umRentalState;             // 대여 상태
+    private String memberDepId;             // 대여 상태
     
     @Column(length = 20) 
     private String umRentalMemberId;          // 대여 학생

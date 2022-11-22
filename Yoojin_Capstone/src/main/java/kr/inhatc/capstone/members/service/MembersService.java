@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.inhatc.capstone.main.umbrella.entity.Umbrella;
 import kr.inhatc.capstone.members.entity.Members;
 import kr.inhatc.capstone.members.repository.MembersRepository;
 import lombok.RequiredArgsConstructor;
@@ -103,5 +104,14 @@ public class MembersService {
 	   
 	    
 	}
+	
+	public List<Members> MembersFindAll() {
+        
+        List<Members> membersList = membersRepository.findAll();
+        return membersList;
+	    
+        
+        
+    }
 	
 }

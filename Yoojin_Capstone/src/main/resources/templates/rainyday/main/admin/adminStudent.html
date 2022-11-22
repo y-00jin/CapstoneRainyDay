@@ -36,7 +36,7 @@
 		<div id="main">
 		
 			
-			<article id="student" class="panel intro">
+			<div id="student" class="panel intro">
 				<header>
 					<h3>| 학생 조회</h3>
 					<form>
@@ -71,38 +71,22 @@
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>202045067</td>
-									<td>이유진</td>
-									<td>컴퓨터시스템과</td>
+							
+								<tr th:each="membersDto, status: ${membersList}">
+								<!-- <td th:text="${status.index}"></td> <td th:text="${umbrellaFormDto.itemNm}"></td> -->
+								<td th:text="${membersDto.memberDepId}"></td>
+								<td th:text="${membersDto.name}"></td>
+								<td th:text="${membersDto.depart}"></td>
 								</tr>
-								<tr>
-									<td>201903056</td>
-									<td>가창묵</td>
-									<td>화학생명공학과</td>
-								</tr>
-								<tr>
-									<td>202045045</td>
-									<td>신민영</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
-								<tr>
-									<td>202045000</td>
-									<td>방민욱</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
-								<tr>
-									<td>202045001</td>
-									<td>강시연</td>
-									<td>컴퓨터시스템과</td>
-								</tr>
+								
+								
 							</tbody>
 						</table>
 
 					</div>
 
 				</header>
-			</article>
+			</div>
 
 		</div>
 	</div>

@@ -35,7 +35,7 @@
 		<div id="main">
 
 
-			<article id="umbrella" class="panel intro">
+			<div id="umbrella" class="panel intro">
 
 
 				<header>
@@ -68,32 +68,18 @@
 						<table class="default">
 							<thead>
 								<tr>
-									<th>우산 번호</th>
+									<th>우산명</th>
 									<th>대여 상태</th>
 								</tr>
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>U001</td>
-									<td>Y</td>
+								<tr th:each="umbrellaDto, status: ${umbrellaList}">
+								<!-- <td th:text="${status.index}"></td> <td th:text="${umbrellaFormDto.itemNm}"></td> -->
+								<td th:text="${umbrellaDto.umName}"></td>
+								<td th:text="${umbrellaDto.umRentalState}"></td>
 								</tr>
-								<tr>
-									<td>U002</td>
-									<td>N</td>
-								</tr>
-								<tr>
-									<td>U003</td>
-									<td>N</td>
-								</tr>
-								<tr>
-									<td>U004</td>
-									<td>Y</td>
-								</tr>
-								<tr>
-									<td>U005</td>
-									<td>N</td>
-								</tr>
+								
 							</tbody>
 						</table>
 
@@ -103,7 +89,7 @@
 		
 		</div>
 	</div>
-
+</div>
 
 
 
