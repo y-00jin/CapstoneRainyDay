@@ -35,7 +35,7 @@
 		<div id="main">
 		
 			
-			<article id="student" class="panel intro">
+			<div id="student" class="panel intro">
 				<header>
 					
 					<h3>| 대여 현황</h3> <br/>
@@ -65,13 +65,19 @@
 						</table>
 
 					</div>
+					<form action="/rainyday/main/user/userRental" method="post">
+						<div th:if="${btnExtension} == true">
+							<input type="submit" id="btnExtension" value="연장" />
+						</div>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					</form>
 					
-					<input type="submit" id="btnExtension" value="연장" />
+					
 					
 				</header>
 				
 				
-			</article>
+			</div>
 
 		</div>
 	</div>

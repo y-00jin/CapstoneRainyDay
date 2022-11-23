@@ -1,5 +1,9 @@
 package kr.inhatc.capstone.main.rental.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.main.rental.repository.RentalRepository;
+import kr.inhatc.capstone.utils.DataUtils;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -105,5 +110,31 @@ public class RentalService {
 	    return rentalList;
 	}
 	
+	public void updateReturnDate(LocalDateTime returnDateLdt) {
+	    
+	    
+	    String memberDepId = DataUtils.getStaticMemberDep();
+	    
+	    System.out.println("^^^^^^^^^^^^^^^^^^^^  " + returnDateLdt) ;
+	    
+	    // ### 1. localDateTime → Calendar로 변환
+        Date rentalDate = java.sql.Timestamp.valueOf(returnDateLdt);
+        Calendar returnCal = Calendar.getInstance();
+        returnCal.setTime(rentalDate);
+        returnCal.add(Calendar.DATE, 7);            // 반납 예정일 : 대여날짜 + 7일
+        
+        // ### 2. Calendar → Date
+        Date returnDate = returnCal.getTime();
+        
+        // ### 3. Date → LocalDateTime
+        LocalDateTime returnLdt = returnDate.toInstant()   // Date -> Instant
+                .atZone(ZoneId.systemDefault())  // Instant -> ZonedDateTime
+                .toLocalDateTime();
+        
+            
+        rentalRepository.updateReturnDate(memberDepId, returnLdt);      // 수정
+	    
+	    
+	}
 	
 }

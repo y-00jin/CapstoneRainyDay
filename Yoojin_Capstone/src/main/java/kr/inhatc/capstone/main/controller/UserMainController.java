@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.inhatc.capstone.main.rental.dto.RentalFormDto;
 import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.main.rental.service.RentalService;
 import kr.inhatc.capstone.main.umbrella.service.UmbrellaService;
@@ -26,6 +28,7 @@ public class UserMainController {
     
     @Autowired
     RentalService rentalService;
+    
     
     
     private List<Rental> rentalList;
@@ -49,20 +52,48 @@ public class UserMainController {
     @GetMapping(value = "/userRental")
     public String userRental(Model model) {
 
-        System.out.println("**************"+ DataUtils.getStaticMemberDep());
+        System.out.println("aaaaaaaaaaaaaaaa " + DataUtils.getStaticMemberDep());
         rentalList = rentalService.myRental(DataUtils.getStaticMemberDep());
-        model.addAttribute("rentalList", rentalList);
+        System.out.println(rentalList);
         
-        if(rentalList == null) {
-            model.addAttribute("btnExtension", "false");
+        if(rentalList.size() != 0) {
+            model.addAttribute("btnExtension", true);
         }
         else {
-            model.addAttribute("btnExtension", "true");
+            model.addAttribute("btnExtension", false);
+        }
+        
+        model.addAttribute("rentalList", rentalList);
+        return "rainyday/main/user/userRental";
+    }
+    
+    @PostMapping(value = "/userRental")
+    public String userRental(Model model, RentalFormDto rentalFormDto) {
+
+        rentalList = rentalService.myRental(DataUtils.getStaticMemberDep());
+        
+        
+        if(rentalList.size() != 0) {
+            model.addAttribute("btnExtension", true);
+            // 수정
+            rentalService.updateReturnDate(rentalList.get(0).getReturnDate());
+            
+            
+            rentalList = rentalService.myRental(DataUtils.getStaticMemberDep());
+            
+            
+        }
+        else {
+            model.addAttribute("btnExtension", false);
         }
         
         
-        return "rainyday/main/user/userRental";
+        model.addAttribute("rentalList", rentalList);
+        model.addAttribute("rentalFormDto", rentalFormDto);
+        
+        return "redirect:/rainyday/main/user/userRental";
     }
+    
     
     @GetMapping(value = "/userNotice")
     public String userNotice(Model model) {

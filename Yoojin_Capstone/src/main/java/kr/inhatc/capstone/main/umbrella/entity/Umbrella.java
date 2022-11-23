@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import kr.inhatc.capstone.main.rental.entity.Rental;
+import kr.inhatc.capstone.main.umbrella.dto.UmbrellaFormDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +36,13 @@ public class Umbrella {
     @Column(length = 20)
     private String umRentalState;             // 대여 상태
 
-    
+    public static Umbrella createUmbrella(UmbrellaFormDto umbrellaFormDto) {
+        Umbrella umbrella = new Umbrella();
+        
+        umbrella.setUmName(umbrellaFormDto.getUmName()); // 우산명
+        umbrella.setUmRentalState("N");                  // 대여 상태
+        
+        return umbrella;
+    }
     
 }

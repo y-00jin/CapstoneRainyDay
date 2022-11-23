@@ -40,4 +40,35 @@ public class UmbrellaService {
         return umbrellaRepository.countUmRentallY();
     }
 	
+	/**
+	 * 우산 정보 조회
+	 * @param umbrella
+	 * @return
+	 */
+	public boolean umNameCheck(Umbrella umbrella) {
+	    
+	    if(umbrellaRepository.umNameCheck(umbrella.getUmName()) != null) {
+	        return true;       // 중복된 값
+	    }
+	    else {
+	        return false;      // 가능한 값
+	    }
+	}
+	
+	/**
+	 * 우산 정보 추가
+	 * @param umbrella
+	 */
+	public void umInsert(Umbrella umbrella) {
+	    umbrellaRepository.umInsert(umbrella.getUmName());
+	}
+	
+	/**
+	 * 우산 정보 삭제
+	 * @param umbrella
+	 */
+	public void umDelete(Umbrella umbrella) {
+        umbrellaRepository.umDelete(umbrella.getUmName());
+    }
+	
 }

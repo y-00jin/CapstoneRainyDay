@@ -1,5 +1,6 @@
 package kr.inhatc.capstone.main.rental.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.inhatc.capstone.main.rental.entity.Rental;
 
@@ -60,6 +62,13 @@ public interface RentalRepository extends JpaRepository<Rental, Long>, QuerydslP
     
     @Query(value = "SELECT * FROM t_rental WHERE return_state ='N' and um_rental_member_id = :umRentalMemberId" , nativeQuery = true)
     List<Rental> myRental(@Param ("umRentalMemberId")String umRentalMemberId);
+    
+    
+   
+    @Modifying
+    @Transactional
+    @Query(value = "update t_rental set return_date =:returnDate, extension_yn ='Y' where um_rental_member_id =:umRentalMemberId and return_state ='N' and extension_yn ='N'", nativeQuery = true)
+    void updateReturnDate(@Param ("umRentalMemberId")String umRentalMemberId, @Param ("returnDate")LocalDateTime returnDate);
     
     
 }

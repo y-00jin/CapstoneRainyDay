@@ -41,6 +41,8 @@ public class AdminMainController {
     private List<Members> membersList;
     private List<Umbrella> umbrellaList;
     
+    private String umError ="";
+    private String setRbUpDel = "등록";
     /**
      * 우산 관리
      * @param model
@@ -51,15 +53,23 @@ public class AdminMainController {
         
         UmbrellaFormDto umbrellaFormDto = new UmbrellaFormDto();
         umbrellaFormDto.setUmRentalState("All");
+        umbrellaFormDto.setRbUpDel(setRbUpDel);
         
         model.addAttribute("umbrellaFormDto", umbrellaFormDto);
         
         umbrellaList = umbrellaService.findAll();
         model.addAttribute("umbrellaList", umbrellaList);
+        model.addAttribute("umError", umError);
        
         return "rainyday/main/admin/adminUmbrella";
     }
     
+    /**
+     * 우산 관리 대여 상태에 따라 테이블 조회
+     * @param model
+     * @param umbrellaFormDto
+     * @return
+     */
     @PostMapping(value = "/adminUmbrella")
     public String adminUmbrella(Model model, UmbrellaFormDto umbrellaFormDto) {
         
@@ -78,6 +88,56 @@ public class AdminMainController {
         return "rainyday/main/admin/adminUmbrella";
     }
     
+    /**
+     * 우산 관리 등록, 삭제 기능 처리 후 페이지 전환
+     * @param model
+     * @param umbrellaFormDto
+     * @return
+     */
+    @PostMapping(value = "/adminUmbrellaQuery")
+    public String adminUmbrellaQuery(Model model, UmbrellaFormDto umbrellaFormDto) {
+        
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!1" + umbrellaFormDto.getRbUpDel());
+        Umbrella umbrella = Umbrella.createUmbrella(umbrellaFormDto);
+        
+        // ### 등록 ###
+        if(umbrellaFormDto.getRbUpDel().equals("등록")) {
+            if(umbrella.getUmName()==null || umbrella.getUmName().equals("")) {
+                umError = "등록 및 삭제할 우산번호를 입력해주세요.";
+            }else {
+                
+                boolean umNameCheck = umbrellaService.umNameCheck(umbrella);
+                if(umNameCheck == true) {       // 중복된 값
+                    umError = "중복된 우산 번호가 있습니다.";
+                }
+                else {
+                    umbrellaService.umInsert(umbrella);     // 추가 작업
+                    umError = "";
+                }
+            }
+            setRbUpDel = "등록";
+        }
+        // ### 삭제 ###
+        else {
+           
+            if(umbrella.getUmName()==null || umbrella.getUmName().equals("")) {
+                umError = "등록 및 삭제할 우산번호를 입력해주세요.";
+            }else {
+                
+                boolean umNameCheck = umbrellaService.umNameCheck(umbrella);
+                if(umNameCheck == true) {       // 값 존재
+                    umError = "";
+                    umbrellaService.umDelete(umbrella);     // 추가 작업
+                }
+                else {
+                    umError = "해당 우산 정보가 없습니다.";
+                }
+            }
+            setRbUpDel = "삭제";
+        }
+
+        return "redirect:/rainyday/main/admin/adminUmbrella";
+    }
     
     
     /**
@@ -99,7 +159,7 @@ public class AdminMainController {
 
     
     /**
-     * 멤버 관리 : 학새 조회
+     * 멤버 관리 : 학생 조회
      * @param membersFormDto
      * @param model
      * @return

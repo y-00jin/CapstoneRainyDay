@@ -39,14 +39,31 @@
 
 
 				<header>
-					<h3>| 우산 등록 · 삭제</h3>
-						<div class="divUmTitle">
+				<form action="/rainyday/main/admin/adminUmbrellaQuery" method="post" th:object="${umbrellaFormDto}">
+					<div class="divUmList">
+						<h3>| 우산 등록 · 삭제　</h3>
+						<label> 
+							<input type="radio" th:field="*{rbUpDel}" th:value="등록"/>
+							<span id="radioSpan">등록</span>
+						</label>
+							
+						<label> 
+							<input type="radio" th:field="*{rbUpDel}" th:value="삭제"/>
+							<span id="radioSpan">삭제</span>
+						</label> 
+					</div>
+							
+					<div class="divUmTitle">
 
-							<input type="text" id="umId" /> 
-							<input type="submit" id="btnInsert" value="등록" /> 
-							<input type="button" id="btnDelete" value="삭제" />
+						<input type="text" th:field="*{umName}" id="umId" /> 
+						<input type="submit" id="btnInsert" value="확인" /> 
 
-						</div>
+					</div>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						
+				</form>
+				<input type="text" id="umError" th:value="${umError}" disabled/>	
+					
 					<hr>
 
 					<form action="/rainyday/main/admin/adminUmbrella" method="post" th:object="${umbrellaFormDto}">
