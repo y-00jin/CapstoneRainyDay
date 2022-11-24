@@ -35,9 +35,18 @@ public interface UmbrellaRepository extends JpaRepository<Umbrella, Long>, Query
     @Query(value = "select * from t_umbrella where um_name =:umName", nativeQuery = true)
     Umbrella umNameCheck(@Param ("umName")String umName);
     
+    @Query(value = "select * from t_umbrella where um_name =:umName and um_rental_state = 'N'", nativeQuery = true)
+    Umbrella umNameCheckN(@Param ("umName")String umName);
+    
     @Modifying
     @Transactional
     @Query(value = "delete from t_umbrella where um_name =:umName", nativeQuery = true)
     void umDelete(@Param ("umName")String umName);
+    
+    
+    @Modifying // update시 추가해줘야함
+    @Transactional // update시 추가해줘야함
+    @Query(value = "update t_umbrella set um_rental_state = :umRentalState where um_name =:umName", nativeQuery = true)
+    void updateUmRentalState(@Param ("umName")String umName, @Param ("umRentalState")String umRentalState);
     
 }

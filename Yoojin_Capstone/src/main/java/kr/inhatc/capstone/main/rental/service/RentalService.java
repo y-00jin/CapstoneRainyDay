@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.main.rental.repository.RentalRepository;
+import kr.inhatc.capstone.main.umbrella.entity.Umbrella;
+import kr.inhatc.capstone.main.umbrella.repository.UmbrellaRepository;
+import kr.inhatc.capstone.members.entity.Members;
+import kr.inhatc.capstone.members.repository.MembersRepository;
 import kr.inhatc.capstone.utils.DataUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class RentalService {
 
 	private final RentalRepository rentalRepository;
+	private final MembersRepository membersRepository;
+	private final UmbrellaRepository umbrellaRepository;
 
 	/**
 	 * 모든 대여 정보 조회
@@ -68,19 +74,29 @@ public class RentalService {
 	 * @return
 	 */
 	public boolean checkRental(Rental rental) {
-	    Rental CheckDepReturn = rentalRepository.checkDepReturn(rental.getUmRentalMemberId());     // 대여 중
-	    Rental CheckUmReturn =  rentalRepository.checkUmReturn(rental.getUmName());
 	    
-	    System.out.println("--------------------CheckDepReturn " + CheckDepReturn);
-	    System.out.println("------------------------CheckUmReturn " + CheckUmReturn);
+	    
+	    Members checkMembers = membersRepository.findByMemberDepId(rental.getUmRentalMemberId());
+	    Umbrella checkUmbrella = umbrellaRepository.umNameCheck(rental.getUmName());
+	    
+	    if(checkMembers!= null && checkUmbrella != null) {
+	        
+	        Rental CheckDepReturn = rentalRepository.checkDepReturn(rental.getUmRentalMemberId());     // 대여 중
+	        Rental CheckUmReturn =  rentalRepository.checkUmReturn(rental.getUmName());
+	    
+	        System.out.println("--------------------CheckDepReturn " + CheckDepReturn);
+	        System.out.println("------------------------CheckUmReturn " + CheckUmReturn);
 
-	    if(CheckDepReturn == null && CheckUmReturn == null) {      // 둘다 대여 가능
-	        return true;
+	        if(CheckDepReturn == null && CheckUmReturn == null) {      // 둘다 대여 가능
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
 	    }
 	    else {
-	        return false;
+	        return false; 
 	    }
-	    
 	}
 	
 	/**
@@ -89,15 +105,27 @@ public class RentalService {
 	 * @return
 	 */
 	public boolean checkReturn(Rental rental) {
-        Rental CheckReturn = rentalRepository.checkReturn(rental.getUmRentalMemberId(), rental.getUmName());     // 대여 중
+	    
+	    Members checkMembers = membersRepository.findByMemberDepId(rental.getUmRentalMemberId());
+        Umbrella checkUmbrella = umbrellaRepository.umNameCheck(rental.getUmName());
+        
+        if(checkMembers!= null && checkUmbrella != null) {
+            
+            Rental CheckReturn = rentalRepository.checkReturn(rental.getUmRentalMemberId(), rental.getUmName());     // 대여 중
         
 
-        if(CheckReturn != null) {      // 반납 가능
-            return true;
+            if(CheckReturn != null) {      // 반납 가능
+                return true;
+            }
+            else {                         // 반납 할 정보 없음
+                return false;
+            }
         }
-        else {                         // 반납 할 정보 없음
+        else {
             return false;
         }
+	    
+        
         
     }
 	

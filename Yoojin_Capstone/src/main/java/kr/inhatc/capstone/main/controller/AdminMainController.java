@@ -124,13 +124,15 @@ public class AdminMainController {
                 umError = "등록 및 삭제할 우산번호를 입력해주세요.";
             }else {
                 
-                boolean umNameCheck = umbrellaService.umNameCheck(umbrella);
+                boolean umNameCheck = umbrellaService.umNameCheckN(umbrella);
                 if(umNameCheck == true) {       // 값 존재
+                    
+                    
                     umError = "";
                     umbrellaService.umDelete(umbrella);     // 추가 작업
                 }
                 else {
-                    umError = "해당 우산 정보가 없습니다.";
+                    umError = "해당 우산 정보가 없거나 이미 대여 중인 우산입니다.";
                 }
             }
             setRbUpDel = "삭제";
@@ -234,17 +236,25 @@ public class AdminMainController {
             // 2. 정보 입력
             else {
                 
-                boolean check = rentalService.checkRental(rental);
+               
+                
+                
+                boolean check = rentalService.checkRental(rental);      // 중복 확인
                 
                 // # 대여 가능
                 if(check == true) {
+                    
                     rentalService.saveRental(rental);                   // 정보 저장
+                    
+                    Umbrella umbrella = Umbrella.createUmbrella(rentalFormDto.getUmName(), "Y");
+                    umbrellaService.updateUmRentalState(umbrella);           // 우산 대여 상태 변경
+                    
                     rentalList = rentalService.searchRentalAnd(rental); // 테이블 재구성
                     model.addAttribute("rentError", "");
                 } 
                 // # 대여 불가능
                 else {
-                    model.addAttribute("rentError", "이미 대여 내역이 있는 학번 또는 우산입니다.");
+                    model.addAttribute("rentError", "대여 정보를 확인하세요.");
                     rentalList = rentalService.findAllRental();
                 }
             }
@@ -267,8 +277,14 @@ public class AdminMainController {
                 // # 반납 가능
                 if(check == true) {   
                     
-                    rentalService.updateRental(rental);     // 정보 변경
+                    rentalService.updateRental(rental);     // 대여 정보 변경
+                    
+                    Umbrella umbrella = Umbrella.createUmbrella(rentalFormDto.getUmName(), "N");
+                    umbrellaService.updateUmRentalState(umbrella);           // 우산 대여 상태 변경
+                    
                     model.addAttribute("rentError", "");
+                    
+                    
                 } 
                 // # 반납할 정보 없음
                 else {

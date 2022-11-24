@@ -45,4 +45,13 @@ public class Umbrella {
         return umbrella;
     }
     
+    public static Umbrella createUmbrella(String umName, String umRentalState) {
+        Umbrella umbrella = new Umbrella();
+        
+        umbrella.setUmName(umName); // 우산명
+        umbrella.setUmRentalState(umRentalState);                  // 대여 상태
+        
+        return umbrella;
+    }
+    
 }

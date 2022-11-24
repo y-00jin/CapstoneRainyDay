@@ -56,6 +56,22 @@ public class UmbrellaService {
 	}
 	
 	/**
+     * 우산 정보 조회 (대여상태가 N인것)
+     * @param umbrella
+     * @return
+     */
+    public boolean umNameCheckN(Umbrella umbrella) {
+        
+        if(umbrellaRepository.umNameCheckN(umbrella.getUmName()) != null) {
+            return true;       // 중복된 값
+        }
+        else {
+            return false;      // 가능한 값
+        }
+    }
+	
+	
+	/**
 	 * 우산 정보 추가
 	 * @param umbrella
 	 */
@@ -70,5 +86,14 @@ public class UmbrellaService {
 	public void umDelete(Umbrella umbrella) {
         umbrellaRepository.umDelete(umbrella.getUmName());
     }
+	
+	/**
+	 * 우산 대여 정보 변경
+	 * @param umbrella
+	 */
+	public void updateUmRentalState(Umbrella umbrella) {
+	    System.out.println("야호");
+	    umbrellaRepository.updateUmRentalState(umbrella.getUmName(), umbrella.getUmRentalState());
+	}
 	
 }
