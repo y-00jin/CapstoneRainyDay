@@ -24,9 +24,10 @@ public interface RentalRepository extends JpaRepository<Rental, Long>, QuerydslP
             "extension_yn FROM t_rental WHERE return_state ='N'" , nativeQuery = true)
     List<Rental> findByRental();
     
-       
+    @Query(value = "SELECT * FROM t_rental WHERE return_state ='N' and (um_rental_member_id like :umRentalMemberId or um_name like :umName)" , nativeQuery = true)
     List<Rental> findByUmRentalMemberIdOrUmName(String umRentalMemberId, String umName);
     
+    @Query(value = "SELECT * FROM t_rental WHERE return_state ='N' and (um_rental_member_id like :umRentalMemberId and um_name like :umName)" , nativeQuery = true)
     List<Rental> findByUmRentalMemberIdAndUmName(String umRentalMemberId, String umName);
     
     /**
@@ -70,5 +71,7 @@ public interface RentalRepository extends JpaRepository<Rental, Long>, QuerydslP
     @Query(value = "update t_rental set return_date =:returnDate, extension_yn ='Y' where um_rental_member_id =:umRentalMemberId and return_state ='N' and extension_yn ='N'", nativeQuery = true)
     void updateReturnDate(@Param ("umRentalMemberId")String umRentalMemberId, @Param ("returnDate")LocalDateTime returnDate);
     
+    @Query(value = "SELECT extension_yn FROM t_rental WHERE return_state ='N' and um_rental_member_id = :umRentalMemberId" , nativeQuery = true)
+    String extensionCheck(String umRentalMemberId);
     
 }

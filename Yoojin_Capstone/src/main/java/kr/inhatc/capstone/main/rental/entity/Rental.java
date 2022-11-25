@@ -67,9 +67,10 @@ public class Rental {
         rental.setUmName(rentalFormDto.getUmName());
         
         // 대여 날짜
-        LocalDateTime rentalLdt = LocalDateTime.now();          // 현재 날짜 가져오기
+        LocalDateTime now = LocalDateTime.now();          // 현재 날짜 가져오기
+        LocalDateTime rentalLdt = LocalDateTime.of(now.getYear(),now.getMonth(), now.getDayOfMonth(), 20, 0, 0);
         rental.setRentalDate(rentalLdt);
-
+        
         
         // 반납 예정일
         

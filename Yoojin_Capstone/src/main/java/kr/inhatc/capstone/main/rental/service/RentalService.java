@@ -164,5 +164,16 @@ public class RentalService {
 	    
 	    
 	}
+
+    public boolean extensionCheck(String staticMemberDep) {
+
+        String extension = rentalRepository.extensionCheck(staticMemberDep);
+        if(extension.equals("Y")) {
+            return true;
+        }else {
+            return false;
+        }
+        
+    }
 	
 }

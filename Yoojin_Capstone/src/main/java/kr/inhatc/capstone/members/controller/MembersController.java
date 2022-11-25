@@ -266,7 +266,7 @@ public class MembersController {
             model.addAttribute("contentCheck", "정보를 모두 입력해주세요.");
             return "rainyday/members/findPw";
         } else {
-            Members checkMembers = membersService.findId(members);
+            Members checkMembers = membersService.findPw(members);
             if (checkMembers == null || checkMembers.getMemberDepId() == null
                     || checkMembers.getMemberDepId().equals("")) {
                 model.addAttribute("contentCheck", "입력한 정보와 일치하는 아이디가 없습니다.");

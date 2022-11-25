@@ -1063,6 +1063,7 @@ table {
 		display: none;
 		}
 		
+		
 		#umError[value="해당 우산 정보가 없거나 이미 대여 중인 우산입니다."], #umError[value="중복된 우산 번호가 있습니다."], #umError[value="등록 및 삭제할 우산번호를 입력해주세요."], #rentError[value="반납 정보를 확인하세요."], #rentError[value="대여 정보를 입력해주세요."], #rentError[value="대여 정보를 확인하세요."], #rentError[value="반납 정보를 입력해주세요."]{
 	background-color: transparent;
 	box-shadow:none;

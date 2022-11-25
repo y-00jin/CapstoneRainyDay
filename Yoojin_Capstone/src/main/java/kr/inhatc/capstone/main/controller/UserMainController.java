@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.inhatc.capstone.main.board.entity.Board;
+import kr.inhatc.capstone.main.board.service.BoardService;
 import kr.inhatc.capstone.main.rental.dto.RentalFormDto;
 import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.main.rental.service.RentalService;
@@ -29,12 +31,15 @@ public class UserMainController {
     @Autowired
     RentalService rentalService;
     
-    
+    @Autowired
+    BoardService boardService;
     
     private List<Rental> rentalList;
     
     @GetMapping(value = "/userUmbrella")
     public String userUmbrella(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
         
         int countAll = umbrellaService.countUmAll();
 
@@ -51,17 +56,25 @@ public class UserMainController {
     
     @GetMapping(value = "/userRental")
     public String userRental(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
 
-        System.out.println("aaaaaaaaaaaaaaaa " + DataUtils.getStaticMemberDep());
         rentalList = rentalService.myRental(DataUtils.getStaticMemberDep());
-        System.out.println(rentalList);
         
         if(rentalList.size() != 0) {
-            model.addAttribute("btnExtension", true);
-        }
-        else {
+            boolean extensionCheck = rentalService.extensionCheck(DataUtils.getStaticMemberDep());
+        
+            if(extensionCheck == true) {        // 연장 한 경우
+                model.addAttribute("btnExtension", false);
+            }
+            else {                              // 연장 X
+                model.addAttribute("btnExtension", true);
+            }
+            
+        }else {
             model.addAttribute("btnExtension", false);
         }
+        
         
         model.addAttribute("rentalList", rentalList);
         return "rainyday/main/user/userRental";
@@ -69,6 +82,8 @@ public class UserMainController {
     
     @PostMapping(value = "/userRental")
     public String userRental(Model model, RentalFormDto rentalFormDto) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
 
         rentalList = rentalService.myRental(DataUtils.getStaticMemberDep());
         
@@ -97,6 +112,11 @@ public class UserMainController {
     
     @GetMapping(value = "/userNotice")
     public String userNotice(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
+        
+        List<Board> boardList = boardService.findAllBoard();
+        model.addAttribute("boardList", boardList);
 //        model.addAttribute("membersFormDto", new MembersFormDto());
 //        model.addAttribute("loginCheck", "");
         return "rainyday/main/user/userNotice";

@@ -119,7 +119,14 @@ public class MembersService {
         
     }
 	
-	
-	
-	
+	public boolean MembersAdminCheck(String memberDepId) {
+	    
+	    String check = membersRepository.MembersAdminCheck(memberDepId);
+	    
+	    if(check.equals("ADMIN")) {
+	        return true;
+	    }else {
+	        return false;
+	    }
+	}
 }

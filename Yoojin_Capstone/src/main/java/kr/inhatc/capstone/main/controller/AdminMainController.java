@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.inhatc.capstone.main.board.dto.BoardFormDto;
+import kr.inhatc.capstone.main.board.entity.Board;
+import kr.inhatc.capstone.main.board.service.BoardService;
 import kr.inhatc.capstone.main.rental.dto.RentalFormDto;
 import kr.inhatc.capstone.main.rental.entity.Rental;
 import kr.inhatc.capstone.main.rental.service.RentalService;
@@ -21,6 +24,7 @@ import kr.inhatc.capstone.main.umbrella.service.UmbrellaService;
 import kr.inhatc.capstone.members.dto.MembersFormDto;
 import kr.inhatc.capstone.members.entity.Members;
 import kr.inhatc.capstone.members.service.MembersService;
+import kr.inhatc.capstone.utils.DataUtils;
 import lombok.extern.log4j.Log4j2;
 
 @Controller // 리턴 정보를 클라이언트에 전달
@@ -37,6 +41,10 @@ public class AdminMainController {
     @Autowired
     RentalService rentalService;
     
+    @Autowired
+    BoardService boardService;
+    
+    
     private List<Rental> rentalList;
     private List<Members> membersList;
     private List<Umbrella> umbrellaList;
@@ -50,6 +58,8 @@ public class AdminMainController {
      */
     @GetMapping(value = "/adminUmbrella")
     public String adminUmbrella(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
         
         UmbrellaFormDto umbrellaFormDto = new UmbrellaFormDto();
         umbrellaFormDto.setUmRentalState("All");
@@ -72,6 +82,8 @@ public class AdminMainController {
      */
     @PostMapping(value = "/adminUmbrella")
     public String adminUmbrella(Model model, UmbrellaFormDto umbrellaFormDto) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
         
         String rentalState = umbrellaFormDto.getUmRentalState();
         umbrellaFormDto.setUmRentalState(rentalState);
@@ -97,7 +109,8 @@ public class AdminMainController {
     @PostMapping(value = "/adminUmbrellaQuery")
     public String adminUmbrellaQuery(Model model, UmbrellaFormDto umbrellaFormDto) {
         
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!1" + umbrellaFormDto.getRbUpDel());
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
+        
         Umbrella umbrella = Umbrella.createUmbrella(umbrellaFormDto);
         
         // ### 등록 ###
@@ -150,6 +163,8 @@ public class AdminMainController {
     @GetMapping(value = "/adminStudent")
     public String adminStudent(Model model) {
         
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
+        
         model.addAttribute("membersFormDto", new MembersFormDto());
         
         membersList = membersService.MembersFindAll();
@@ -168,6 +183,8 @@ public class AdminMainController {
      */
     @PostMapping(value = "/adminStudent")
     public String adminStudent(MembersFormDto membersFormDto, Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
 
         if(membersFormDto.getMemberSelect().equals("")) {
             membersList = membersService.MembersFindAll();
@@ -188,6 +205,8 @@ public class AdminMainController {
      */
     @GetMapping(value = "/adminRental")
     public String adminRental(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
         
         RentalFormDto rentalFormDto = new RentalFormDto();
         rentalFormDto.setRbRental("rbSearch");
@@ -210,9 +229,11 @@ public class AdminMainController {
     @PostMapping(value = "/adminRental")
     public String adminRental(RentalFormDto rentalFormDto, Model model) {
 
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
+        
         Rental rental = Rental.createRental(rentalFormDto);
         
-        
+        System.out.println("-------------------------------- " + rental.getRentalDate());
         String rbSelect = rentalFormDto.getRbRental();
         
         // ### 검색
@@ -235,9 +256,6 @@ public class AdminMainController {
             }
             // 2. 정보 입력
             else {
-                
-               
-                
                 
                 boolean check = rentalService.checkRental(rental);      // 중복 확인
                 
@@ -303,11 +321,22 @@ public class AdminMainController {
         return "rainyday/main/admin/adminRental";
     }
     
+    /**
+     * 공지 사항
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/adminNotice")
     public String adminNotice(Model model) {
+        
+        DataUtils.setStaticMemberDep(DataUtils.getStaticMemberDep());
+        
+        List<Board> boardList = boardService.findAllBoard();
+        
+        model.addAttribute("boardList", boardList);
+        
 //        model.addAttribute("membersFormDto", new MembersFormDto());
 //        model.addAttribute("loginCheck", "");
-        System.out.println("qqqqqqq");
         return "rainyday/main/admin/adminNotice";
     }
 }

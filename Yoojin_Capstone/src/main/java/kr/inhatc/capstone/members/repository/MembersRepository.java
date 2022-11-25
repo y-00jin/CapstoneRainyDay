@@ -79,4 +79,8 @@ public interface MembersRepository extends JpaRepository<Members, Long>, Queryds
 	@Query(value = "select * from t_member where member_dep_id like %:memberDepId% or name like %:name% or depart like %:depart%", nativeQuery = true)
 	List<Members> MembersFindOr(@Param ("memberDepId")String memberDepId, @Param ("name")String name, @Param ("depart")String depart);
 	
+	
+	@Query(value = "select role from t_member where member_dep_id =:memberDepId", nativeQuery = true)
+	String MembersAdminCheck(String memberDepId);
+	
 }

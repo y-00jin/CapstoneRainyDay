@@ -34,7 +34,7 @@
 		<div id="main">
 		
 			
-			<article id="student" class="panel intro">
+			<div id="student" class="panel intro">
 				<header>
 					
 					<h3>| 공지</h3> <br/>
@@ -46,30 +46,15 @@
 									<th>글번호</th>
 									<th>제목</th>
 									<th>작성일</th>
-									<th>조회수</th>
 								</tr>
 							</thead>
 
 							<tbody>
 							
-								<tr>
-									<td>3</td>
-									<td>우산 대여 안내</td>
-									<td>2022.10.1</td>
-									<td>35</td>
-								</tr>
-															
-								<tr>
-									<td>2</td>
-									<td>우산 반납 공지</td>
-									<td>2022.09.20</td>
-									<td>17</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>우산 대여 시간 안내</td>
-									<td>2022.09.15</td>
-									<td>58</td>
+								<tr th:each="boardDto, status: ${boardList}" th:onclick="'location.href=\'/rainyday/main/board/detail/' + @{${boardDto.id}}+'\''">
+								<td th:text="${boardDto.id}"></td>
+								<td th:text="${boardDto.title}" ></td>
+								<td th:text="${#temporals.format(boardDto.createDate, 'yyyy-MM-dd')}"></td>
 								</tr>
 								
 							</tbody>
@@ -79,8 +64,7 @@
 
 				</header>
 				
-				
-			</article>
+			</div>
 
 		</div>
 	</div>

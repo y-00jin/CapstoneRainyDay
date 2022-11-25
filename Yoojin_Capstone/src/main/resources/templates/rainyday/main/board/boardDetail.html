@@ -25,18 +25,22 @@
 
 	<div id="wrapper">
 
-		<nav id="nav">
+		<nav th:if="${adminCheck} == true" id="nav" >
 			<a href='/rainyday/main/admin/adminUmbrella' class="icon solid fa-umbrella"><span>Umbrella</span></a> 
 			<a href='/rainyday/main/admin/adminStudent' class="icon solid fa-user"><span>Student</span></a>
 			<a href="/rainyday/main/admin/adminRental" class="icon solid fa-hand-holding-heart"><span>Rental</span></a>
 			<a href="/rainyday/main/admin/adminNotice" class="icon solid fa-bullhorn"><span>Notice</span></a>
 			<a href="/rainyday/members/introPage" class="icon solid fa-circle-xmark"><span>Exit</span></a>
-
-
 		</nav>
 
-		<div id="main">
+		<nav th:unless="${adminCheck} == true" id="nav">
+			<a href='/rainyday/main/user/userUmbrella' class="icon solid fa-umbrella"><span>Umbrella</span></a> 
+			<a href="/rainyday/main/user/userRental" class="icon solid fa-hand-holding-heart"><span>Rental</span></a>
+			<a href="/rainyday/main/user/userNotice" class="icon solid fa-bullhorn"><span>Notice</span></a>
+			<a href="/rainyday/members/introPage" class="icon solid fa-circle-xmark"><span>Exit</span></a>
+		</nav>
 		
+		<div id="main">
 			
 			<div class="panel intro">
 				<header>
@@ -47,19 +51,14 @@
 						<table class="default">
 							<tr>
 								<th>글번호</th>
-								<td>1</td>
-								<th>조회수</th>
-								<td>58</td>
-							</tr>
-							<tr>
-								<th>작성자</th>
-								<td>신민영</td>
+								<td th:text="${boardId}"></td>
 								<th>작성일</th>
-								<td>2022.09.15</td>
+								<td th:text="${#temporals.format(boardCreateDate, 'yyyy-MM-dd')}"></td>
 							</tr>
+							
 							<tr>
 								<th>제목</th>
-								<td colspan="3">우산 대여 시간 안내</td>
+								<td colspan="3" th:text="${boardTitle}"></td>
 								
 							</tr>
 									
@@ -70,15 +69,17 @@
 						<div class="divContent">
 							<h4>| 내용</h4>
 							<br/>
-							<textarea class="detailTaContent" ></textarea>
+							<textarea class="detailTaContent" th:text="${boardContent}" disabled></textarea>
 						</div>
 						
 							
-						<div class="btnBoard">
+						<div class="btnBoard" th:if="${adminCheck} == true">
 							<input type="button" id="btnCancel" value="목록" onClick="window.location.href='/rainyday/main/admin/adminNotice'" />
-							<input type="button" onClick="window.location.href='/rainyday/main/admin/board/update'" value="수정" />
-							<input type="button" value="삭제" />
-						
+							<input type="button" th:onclick="'location.href=\'/rainyday/main/board/update/' + @{${boardId}}+'\''" value="수정" />
+							<input type="button" th:onclick="'location.href=\'/rainyday/main/board/delete/' + @{${boardId}}+'\''" value="삭제"/>
+						</div>
+						<div class="btnBoard" th:unless="${adminCheck} == true">
+							<input type="button" id="btnCancel" value="목록" onClick="window.location.href='/rainyday/main/user/userNotice'" />
 						</div>
 						
 							
